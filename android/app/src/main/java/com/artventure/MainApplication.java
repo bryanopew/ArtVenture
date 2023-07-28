@@ -1,4 +1,4 @@
-package com.artus;
+package com.artventure;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

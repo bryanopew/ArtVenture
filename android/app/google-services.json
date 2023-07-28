@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "958494797249",
+    "project_id": "artventure-185bc",
+    "storage_bucket": "artventure-185bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958494797249:android:3d43e031a3e4e0d1a05340",
+        "android_client_info": {
+          "package_name": "com.artventure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958494797249-jrgt4qlo8h2fun1uii5tpj2ih5ddq5c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBny--0qARTfo5CgvyqBLRoXvoUiiidIbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958494797249-jrgt4qlo8h2fun1uii5tpj2ih5ddq5c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

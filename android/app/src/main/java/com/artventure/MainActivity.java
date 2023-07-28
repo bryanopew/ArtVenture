@@ -1,4 +1,4 @@
-package com.artus;
+package com.artventure;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
@@ -14,7 +14,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "ArtVenture";
+    return "artventure";
   }
 
   @Override
