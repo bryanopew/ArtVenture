@@ -8,7 +8,7 @@ import {styled} from 'styled-components/native';
 import {icons} from '../assets/icons';
 import {_MPY_} from '../utils/const';
 import {colors} from '../style/colors';
-import {Pressable} from 'react-native';
+import {Pressable, View} from 'react-native';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -29,7 +29,19 @@ const BottomTabNav = () => {
         ),
         headerStyle: {height: 110 * _MPY_},
         tabBarShowLabel: false,
-        tabBarStyle: {height: 108 * _MPY_},
+        tabBarStyle: {
+          height: 108 * _MPY_,
+          borderTopWidth: 0,
+          elevation: 30,
+          shadowColor: colors.black,
+          shadowRadius: 16,
+          shadowOpacity: 0.4,
+          shadowOffset: {
+            width: 0,
+            height: -10,
+          },
+        },
+        headerShadowVisible: false,
       }}>
       <BottomTab.Screen
         name="Home"
