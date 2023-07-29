@@ -4,4 +4,5 @@ export const colors = {
   textSub: '#868686',
   textMain: '#111111',
   inactivate: '#B7B7B7',
+  line: '#707070',
 };

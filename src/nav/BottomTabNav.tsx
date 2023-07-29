@@ -1,18 +1,35 @@
+// RN
+import {Pressable, View} from 'react-native';
+
+// 3rd
+import {styled} from 'styled-components/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home';
+import {useRecoilState} from 'recoil';
+
+// util, const, style
+import {icons} from '../assets/icons';
+import {_MPY_} from '../utils/const';
+import {colors} from '../style/colors';
+
+// components
 import Category from '../screens/Category';
 import Bookmark from '../screens/Bookmark';
 import Korean from '../screens/Korean';
 import User from '../screens/User';
-import {styled} from 'styled-components/native';
-import {icons} from '../assets/icons';
-import {_MPY_} from '../utils/const';
-import {colors} from '../style/colors';
-import {Pressable, View} from 'react-native';
+import HomeNav from './HomeNav';
+import ArrowLeft from '../component/nav/ArrowLeft';
+import {useNavigation} from '@react-navigation/native';
+import {currentScrState} from '../recoil/atoms';
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNav = () => {
+  const navigation = useNavigation();
+
+  // recoil
+  const [currentScr, setCurrentScr] = useRecoilState(currentScrState);
+  console.log('BottomTabNav currentScr: ', currentScr);
+
   return (
     <BottomTab.Navigator
       screenOptions={{
@@ -27,6 +44,7 @@ const BottomTabNav = () => {
             <IconImg source={icons.search} style={{marginRight: 48 * _MPY_}} />
           </Pressable>
         ),
+
         headerStyle: {height: 110 * _MPY_},
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -44,8 +62,8 @@ const BottomTabNav = () => {
         headerShadowVisible: false,
       }}>
       <BottomTab.Screen
-        name="Home"
-        component={Home}
+        name="HomeNav"
+        component={HomeNav}
         options={{
           tabBarIcon: ({focused}) => (
             <IconBox>
@@ -53,6 +71,17 @@ const BottomTabNav = () => {
               {focused && <IconLine />}
             </IconBox>
           ),
+          headerLeft: () =>
+            ['HomeShow', 'HomeList'].includes(currentScr) && (
+              <ArrowLeft
+                navigationFn={() => {
+                  navigation.reset({
+                    index: 0,
+                    routes: [{name: 'HomeNav', params: {screen: 'Home'}}],
+                  });
+                }}
+              />
+            ),
         }}
       />
       <BottomTab.Screen

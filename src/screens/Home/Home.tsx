@@ -4,17 +4,12 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   _MPY_,
-} from '../utils/const';
-import React, {useMemo} from 'react';
+} from '../../utils/const';
+import React, {useEffect, useMemo} from 'react';
 import styled from 'styled-components/native';
-import {
-  ColumnGap,
-  Container,
-  IAvStyled,
-  TextMainBd,
-} from '../style/styledConst';
+import {Container, Row, TextMainBd} from '../../style/styledConst';
 import Carousel from 'react-native-reanimated-carousel';
-import {colors} from '../style/colors';
+import {colors} from '../../style/colors';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -22,7 +17,11 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import {icons} from '../../assets/icons';
+import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
+import {useRecoilState} from 'recoil';
+import {currentScrState} from '../../recoil/atoms';
 
 const recommendedExTest = [
   {
@@ -71,7 +70,21 @@ const famousArtTest = [
 ];
 
 const Home = () => {
-  // js code
+  // navigation
+  const {navigate} = useNavigation();
+  const isFocused = useIsFocused();
+  const route = useRoute();
+
+  // recoil
+  const [currentScr, setCurrentScr] = useRecoilState(currentScrState);
+
+  // useeffect
+  useEffect(() => {
+    console.log(isFocused);
+    isFocused && setCurrentScr(route.name);
+  }, [route.name]);
+
+  // etc
   const famousArtTestWithSize = useMemo(() => {
     return famousArtTest.map(art => {
       const {artWidth, artHeight} = Image.getSize(
@@ -97,11 +110,11 @@ const Home = () => {
 
   // animation
   const animValue = useSharedValue<number>(0);
-  console.log('famousArtTestWithSize: ', famousArtTestWithSize);
 
   return (
     <Container>
       <HomeScroll>
+        {/* exhibition */}
         <RecommendExTitle>이 주의 추천 전시회</RecommendExTitle>
         <Carousel
           style={{marginTop: 16 * _MPY_}}
@@ -127,6 +140,7 @@ const Home = () => {
             <RecommendExBox
               onPress={() => {
                 console.log(item.name, 'pressed');
+                navigate('HomeShow', {name: item.name, uri: item.uri});
               }}>
               <RecommendExImg source={{uri: item.uri}} />
             </RecommendExBox>
@@ -143,27 +157,38 @@ const Home = () => {
           ))}
         </PaginationBox>
 
-        <HomeTitle>유명작가 그림 모음집</HomeTitle>
-        <FlatList
-          // nestedScrollEnabled={true}
-          style={{marginTop: 24 * _MPY_}}
-          data={famousArtTestWithSize}
-          renderItem={({item}) => (
-            <ArtBox>
+        {/* homeList */}
+        <Row
+          style={{
+            marginTop: 96 * _MPY_,
+            justifyContent: 'space-between',
+            marginHorizontal: 46 * _MPY_,
+          }}>
+          <HomeTitle>유명작가 그림 모음집</HomeTitle>
+          <RightImg source={icons.right} />
+        </Row>
+        <HomeHorizontalScroll horizontal={true}>
+          {famousArtTestWithSize.map((art, index) => (
+            <ArtBox
+              key={index}
+              onPress={() => {
+                console.log(art.name, 'pressed');
+                navigate('HomeNav', {
+                  screen: 'HomeList',
+                });
+              }}>
               <ArtImg
-                source={{uri: item.uri}}
+                source={{uri: art.uri}}
                 style={{
                   height: HOME_ART_HEIGHT,
-                  width: item.width
-                    ? (item.width * HOME_ART_HEIGHT) / item.height
+                  width: art.width
+                    ? (art.width * HOME_ART_HEIGHT) / art.height
                     : HOME_ART_HEIGHT,
                 }}
               />
             </ArtBox>
-          )}
-          ItemSeparatorComponent={() => <ColumnGap />}
-          horizontal={true}
-        />
+          ))}
+        </HomeHorizontalScroll>
       </HomeScroll>
     </Container>
   );
@@ -201,7 +226,6 @@ const Pagination: React.FC<{
       transform: [{scaleX: interpolatedValue}],
     };
   }, [animValue.value]);
-  console.log(animStyle);
 
   return (
     <Animated.View
@@ -218,6 +242,10 @@ const Pagination: React.FC<{
 };
 
 export default Home;
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+const HomeScroll = styled.ScrollView``;
 
 const RecommendExTitle = styled(TextMainBd)`
   font-size: ${40 * _MPY_}px;
@@ -247,13 +275,23 @@ const PaginationBox = styled.View`
 
 const HomeTitle = styled(TextMainBd)`
   font-size: ${34 * _MPY_}px;
-  margin-top: ${96 * _MPY_}px;
-  margin-left: ${46 * _MPY_}px;
 `;
 
-const HomeScroll = styled.ScrollView`
+const RightImg = styled.Image`
+  width: ${48 * _MPY_}px;
+  height: ${48 * _MPY_}px;
+`;
+
+const HomeHorizontalScroll = styled.ScrollView`
+  width: ${SCREEN_WIDTH}px;
   margin-top: ${24 * _MPY_}px;
+  padding-left: ${46 * _MPY_}px;
+  padding-right: ${46 * _MPY_}px;
 `;
 
-const ArtBox = styled.TouchableOpacity``;
-const ArtImg = styled.Image``;
+const ArtBox = styled.TouchableOpacity`
+  margin-right: ${24 * _MPY_}px;
+`;
+const ArtImg = styled.Image`
+  border-radius: ${10 * _MPY_}px;
+`;

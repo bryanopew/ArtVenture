@@ -3,12 +3,15 @@ import React from 'react';
 
 import RootStackNav from './src/nav/RootStackNav';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {RecoilRoot} from 'recoil';
 
 function App(): JSX.Element {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer>
-        <RootStackNav />
+        <RecoilRoot>
+          <RootStackNav />
+        </RecoilRoot>
       </NavigationContainer>
     </GestureHandlerRootView>
   );

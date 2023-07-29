@@ -11,8 +11,19 @@ export const Container = styled.SafeAreaView`
   background-color: ${colors.white};
 `;
 
+// icon
+export const Icon = styled.Image<{size?: number}>`
+  width: ${({size}) => (size ? `${size}px` : `${48 * _MPY_}px`)};
+  height: ${({size}) => (size ? `${size}px` : `${48 * _MPY_}px`)};
+`;
+
+// text
 const TextMain = styled.Text`
   color: ${colors.textMain};
+`;
+
+const TextSub = styled.Text`
+  color: ${colors.textSub};
 `;
 
 export const TextMainBd = styled(TextMain)`
@@ -30,13 +41,48 @@ export const TextMainLt = styled(TextMain)`
 export const TextMainTh = styled(TextMain)`
   font-family: 'SpoqaHanSansNeo-Thin';
 `;
+export const TextSubBd = styled(TextSub)`
+  font-family: 'SpoqaHanSansNeo-Bold';
+`;
+export const TextSubMd = styled(TextSub)`
+  font-family: 'SpoqaHanSansNeo-Medium';
+`;
+export const TextSubRg = styled(TextSub)`
+  font-family: 'SpoqaHanSansNeo-Regular';
+`;
+export const TextSubLt = styled(TextSub)`
+  font-family: 'SpoqaHanSansNeo-Light';
+`;
+TextSub;
+export const TextSubTh = styled(TextSub)`
+  font-family: 'SpoqaHanSansNeo-Thin';
+`;
+
+export const Col = styled.View``;
+export const Row = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
 // gap
-export const ColumnGap = styled.View`
-  width: ${24 * _MPY_}px;
-  height: 100%;
+export const ColumnSpace = styled.View<{width?: number; height?: number}>`
+  width: ${({width}) => (width ? width : 24 * _MPY_)}px;
+  height: ${({height}) => (height ? `${height}px` : `100%`)};
 `;
-export const RowGap = styled.View`
-  width: ${24 * _MPY_}px;
-  height: 100%;
+export const RowSpace = styled.View<{width?: number; height?: number}>`
+  width: ${({width}) => (width ? `${width}px` : `100%`)};
+  height: ${({height}) => (height ? height : 24 * _MPY_)}px;
+`;
+
+// line
+export const Line = styled.View<{
+  direction: 'horizontal' | 'vertical';
+  lineWidth: number;
+  color?: string;
+}>`
+  width: ${({direction, lineWidth}) =>
+    direction === 'horizontal' ? `100%` : `${lineWidth}px`};
+  height: ${({direction, lineWidth}) =>
+    direction === 'horizontal' ? `${lineWidth}px` : `100%`};
+  background-color: ${({color}) => (color ? color : colors.line)};
 `;
