@@ -17,7 +17,6 @@ import Bookmark from '../screens/Bookmark';
 import Korean from '../screens/Korean';
 import User from '../screens/User';
 import HomeNav from './HomeNav';
-import ArrowLeft from '../component/nav/ArrowLeft';
 import {useNavigation} from '@react-navigation/native';
 import {currentScrState} from '../recoil/atoms';
 
@@ -33,19 +32,7 @@ const BottomTabNav = () => {
   return (
     <BottomTab.Navigator
       screenOptions={{
-        headerTitle: () => (
-          <Pressable onPress={() => console.log('headerTitle pressed')}>
-            <LogoImg source={icons.logo} />
-          </Pressable>
-        ),
-        headerTitleAlign: 'center',
-        headerRight: () => (
-          <Pressable onPress={() => console.log('headerRight pressed')}>
-            <IconImg source={icons.search} style={{marginRight: 48 * _MPY_}} />
-          </Pressable>
-        ),
-
-        headerStyle: {height: 110 * _MPY_},
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
           height: 108 * _MPY_,
@@ -59,7 +46,6 @@ const BottomTabNav = () => {
             height: -10,
           },
         },
-        headerShadowVisible: false,
       }}>
       <BottomTab.Screen
         name="HomeNav"
@@ -71,17 +57,7 @@ const BottomTabNav = () => {
               {focused && <IconLine />}
             </IconBox>
           ),
-          headerLeft: () =>
-            ['HomeShow', 'HomeList'].includes(currentScr) && (
-              <ArrowLeft
-                navigationFn={() => {
-                  navigation.reset({
-                    index: 0,
-                    routes: [{name: 'HomeNav', params: {screen: 'Home'}}],
-                  });
-                }}
-              />
-            ),
+          headerShown: false,
         }}
       />
       <BottomTab.Screen
@@ -155,9 +131,4 @@ const IconLine = styled.View`
   position: absolute;
   bottom: ${18 * _MPY_}px;
   background-color: ${colors.black};
-`;
-
-const LogoImg = styled.Image`
-  width: ${50 * _MPY_}px;
-  height: ${50 * _MPY_}px;
 `;

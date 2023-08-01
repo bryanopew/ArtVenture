@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Pressable} from 'react-native';
 import {
   HOME_ART_HEIGHT,
   SCREEN_HEIGHT,
@@ -7,7 +7,14 @@ import {
 } from '../../utils/const';
 import React, {useEffect, useMemo} from 'react';
 import styled from 'styled-components/native';
-import {Container, Row, TextMainBd} from '../../style/styledConst';
+import {
+  Container,
+  ContainerWithTopBar,
+  Icon,
+  Row,
+  RowSpace,
+  TextMainBd,
+} from '../../style/styledConst';
 import Carousel from 'react-native-reanimated-carousel';
 import {colors} from '../../style/colors';
 import Animated, {
@@ -22,6 +29,10 @@ import {icons} from '../../assets/icons';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import {useRecoilState} from 'recoil';
 import {currentScrState} from '../../recoil/atoms';
+import HomeSubjectContent from '../../component/home/HomeSubjectContent';
+import Topbar from '../../component/common/TopBar';
+import TopBar from '../../component/common/TopBar';
+import TopBarLogo from '../../component/nav/TopBarLogo';
 
 const recommendedExTest = [
   {
@@ -49,22 +60,27 @@ const recommendedExTest = [
 const famousArtTest = [
   {
     name: 'test1',
+    id: '1',
     uri: 'https://drive.google.com/uc?export=view&id=1VNzVcpOqKsa1EhpslYtP4gPP7qNDIqXZ',
   },
   {
     name: 'test2',
+    id: '2',
     uri: 'https://drive.google.com/uc?export=view&id=1lMwt-QXHaR16TWhICNuT29mdJ6LV4_RO',
   },
   {
     name: 'test3',
+    id: '3',
     uri: 'https://drive.google.com/uc?export=view&id=1aoZ62402vjdQ1aAWpTt31xjjW1AanTaY',
   },
   {
     name: 'test4',
+    id: '4',
     uri: 'https://drive.google.com/uc?export=view&id=1M7dP3apFOsZhKDyMyI1wrhd8o7gIOR7F',
   },
   {
     name: 'test5',
+    id: '5',
     uri: 'https://drive.google.com/uc?export=view&id=1ksMsWE4a-0A6SU0lsUhQF0UcYx7Psfz2',
   },
 ];
@@ -85,34 +101,25 @@ const Home = () => {
   }, [route.name]);
 
   // etc
-  const famousArtTestWithSize = useMemo(() => {
-    return famousArtTest.map(art => {
-      const {artWidth, artHeight} = Image.getSize(
-        art.uri,
-        (width, height) => {
-          console.log(width, height);
-        },
-        () => {
-          console.log(`${art.name} getSize error`);
-        },
-      );
-
-      const height = 326 * _MPY_;
-      const width = artWidth * (height / artHeight);
-
-      return {
-        ...art,
-        width,
-        height,
-      };
-    });
-  }, [famousArtTest]);
 
   // animation
   const animValue = useSharedValue<number>(0);
 
   return (
-    <Container>
+    <ContainerWithTopBar>
+      <TopBar
+        header={() => <TopBarLogo />}
+        headerStyle={{alignItems: 'center'}}
+        headerRight={() => (
+          <Pressable onPress={() => console.log('headerRight pressed')}>
+            <Icon
+              source={icons.search}
+              style={{marginRight: 12 * _MPY_}}
+              size={48 * _MPY_}
+            />
+          </Pressable>
+        )}
+      />
       <HomeScroll>
         {/* exhibition */}
         <RecommendExTitle>이 주의 추천 전시회</RecommendExTitle>
@@ -130,7 +137,6 @@ const Home = () => {
           scrollAnimationDuration={1000}
           onSnapToItem={index => console.log('current index:', index)}
           onProgressChange={(_, absoluteProgress) => {
-            // console.log('absoluteProgress:', absoluteProgress);
             animValue.value = absoluteProgress;
           }}
           panGestureHandlerProps={{
@@ -157,40 +163,22 @@ const Home = () => {
           ))}
         </PaginationBox>
 
+        <RowSpace style={{height: 32 * _MPY_}} />
         {/* homeList */}
-        <Row
-          style={{
-            marginTop: 96 * _MPY_,
-            justifyContent: 'space-between',
-            marginHorizontal: 46 * _MPY_,
-          }}>
-          <HomeTitle>유명작가 그림 모음집</HomeTitle>
-          <RightImg source={icons.right} />
-        </Row>
-        <HomeHorizontalScroll horizontal={true}>
-          {famousArtTestWithSize.map((art, index) => (
-            <ArtBox
-              key={index}
-              onPress={() => {
-                console.log(art.name, 'pressed');
-                navigate('HomeNav', {
-                  screen: 'HomeList',
-                });
-              }}>
-              <ArtImg
-                source={{uri: art.uri}}
-                style={{
-                  height: HOME_ART_HEIGHT,
-                  width: art.width
-                    ? (art.width * HOME_ART_HEIGHT) / art.height
-                    : HOME_ART_HEIGHT,
-                }}
-              />
-            </ArtBox>
-          ))}
-        </HomeHorizontalScroll>
+        <HomeSubjectContent
+          title="유명작가 그림 모음집"
+          contents={famousArtTest}
+        />
+        <HomeSubjectContent
+          title="비운의 작가 그림 모음집"
+          contents={famousArtTest}
+        />
+        <HomeSubjectContent
+          title="요즘 인기 있는 작가 그림 모음집"
+          contents={famousArtTest}
+        />
       </HomeScroll>
-    </Container>
+    </ContainerWithTopBar>
   );
 };
 
@@ -271,27 +259,4 @@ const PaginationBox = styled.View`
   flex-direction: row;
   margin-top: ${32 * _MPY_}px;
   column-gap: ${14 * _MPY_}px;
-`;
-
-const HomeTitle = styled(TextMainBd)`
-  font-size: ${34 * _MPY_}px;
-`;
-
-const RightImg = styled.Image`
-  width: ${48 * _MPY_}px;
-  height: ${48 * _MPY_}px;
-`;
-
-const HomeHorizontalScroll = styled.ScrollView`
-  width: ${SCREEN_WIDTH}px;
-  margin-top: ${24 * _MPY_}px;
-  padding-left: ${46 * _MPY_}px;
-  padding-right: ${46 * _MPY_}px;
-`;
-
-const ArtBox = styled.TouchableOpacity`
-  margin-right: ${24 * _MPY_}px;
-`;
-const ArtImg = styled.Image`
-  border-radius: ${10 * _MPY_}px;
 `;

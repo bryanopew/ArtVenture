@@ -16,6 +16,7 @@ export const icons = {
   more: require('../assets/icons/more_48.png'),
   price: require('../assets/icons/price_48.png'),
   right: require('../assets/icons/right_48.png'),
+  rightGrey: require('../assets/icons/right_grey_48.png'),
   search: require('../assets/icons/search_48.png'),
   setting: require('../assets/icons/setting_48.png'),
   share: require('../assets/icons/share_48.png'),

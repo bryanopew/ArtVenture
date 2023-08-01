@@ -23,7 +23,6 @@ import {colors} from '../../style/colors';
 const HomeShow = () => {
   // navigation
   const route = useRoute();
-  console.log(route.params.uri);
   const isFocused = useIsFocused();
 
   // recoil
@@ -37,7 +36,7 @@ const HomeShow = () => {
   }, [route.name]);
   return (
     <Container>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView contentContainerStyle={{paddingBottom: 64}}>
         <MainImageBox>
           <BlurImg source={{uri: route?.params?.uri}} resizeMode="stretch" />
           <BlurView

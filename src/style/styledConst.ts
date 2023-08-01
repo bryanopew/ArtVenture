@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {colors} from './colors';
-import {_MPY_} from '../utils/const';
+import {TOP_BAR_HEIGHT, _MPY_} from '../utils/const';
 
 export interface IAvStyled {
   isActivated: boolean;
@@ -9,6 +9,10 @@ export interface IAvStyled {
 export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${colors.white};
+`;
+
+export const ContainerWithTopBar = styled(Container)`
+  padding-top: ${TOP_BAR_HEIGHT}px;
 `;
 
 // icon
