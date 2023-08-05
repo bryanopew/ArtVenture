@@ -1,20 +1,20 @@
 import {View, Text, Pressable, ScrollView} from 'react-native';
 import React, {useEffect} from 'react';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import {useSetCurrentScr} from '../../hooks/screens';
+import {useSetCurrentScr} from '../hooks/screens';
 import {useRecoilState} from 'recoil';
-import {currentScrState} from '../../recoil/atoms';
+import {currentScrState} from '../recoil/atoms';
 import {
   Container,
   ContainerWithTopBar,
   Icon,
   TextMainBd,
-} from '../../style/styledConst';
-import {_MPY_} from '../../utils/const';
-import TopBar from '../../component/common/TopBar';
-import ArrowLeft from '../../component/nav/ArrowLeft';
-import {icons} from '../../assets/icons';
-import HomeListContent from '../../component/home/HomeListContent';
+} from '../style/styledConst';
+import {_MPY_} from '../utils/const';
+import TopBar from '../component/common/TopBar';
+import ArrowLeft from '../component/nav/ArrowLeft';
+import {icons} from '../assets/icons';
+import HomeListContent from '../component/home/HomeListContent';
 
 const testArtists = [
   {
@@ -54,7 +54,7 @@ const HomeList = () => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <TextMainBd style={{fontSize: 40 * _MPY_}}>
+        <TextMainBd style={{fontSize: 40 * _MPY_, marginLeft: 20 * _MPY_}}>
           {route.params?.title}
         </TextMainBd>
       ),
@@ -62,31 +62,7 @@ const HomeList = () => {
   }, [route?.params?.title]);
 
   return (
-    <ContainerWithTopBar>
-      <TopBar
-        headerLeft={() => (
-          <ArrowLeft navigationFn={() => navigation.goBack()} />
-        )}
-        header={() =>
-          route.params?.title && (
-            <TextMainBd style={{fontSize: 40 * _MPY_, marginLeft: 8}}>
-              {route.params?.title}
-            </TextMainBd>
-          )
-        }
-        headerStyle={{alignItems: 'flex-start'}}
-        headerRight={() => (
-          <Pressable
-            onPress={() => console.log('headerRight pressed')}
-            style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Icon
-              source={icons.search}
-              style={{marginRight: 12 * _MPY_}}
-              size={48 * _MPY_}
-            />
-          </Pressable>
-        )}
-      />
+    <Container>
       <ScrollView>
         {testArtists.map(artist => (
           <HomeListContent
@@ -98,7 +74,7 @@ const HomeList = () => {
           />
         ))}
       </ScrollView>
-    </ContainerWithTopBar>
+    </Container>
   );
 };
 

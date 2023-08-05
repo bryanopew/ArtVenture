@@ -4,7 +4,7 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   _MPY_,
-} from '../../utils/const';
+} from '../utils/const';
 import React, {useEffect, useMemo} from 'react';
 import styled from 'styled-components/native';
 import {
@@ -14,9 +14,9 @@ import {
   Row,
   RowSpace,
   TextMainBd,
-} from '../../style/styledConst';
+} from '../style/styledConst';
 import Carousel from 'react-native-reanimated-carousel';
-import {colors} from '../../style/colors';
+import {colors} from '../style/colors';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -25,14 +25,14 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
-import {icons} from '../../assets/icons';
+import {icons} from '../assets/icons';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import {useRecoilState} from 'recoil';
-import {currentScrState} from '../../recoil/atoms';
-import HomeSubjectContent from '../../component/home/HomeSubjectContent';
-import Topbar from '../../component/common/TopBar';
-import TopBar from '../../component/common/TopBar';
-import TopBarLogo from '../../component/nav/TopBarLogo';
+import {currentScrState} from '../recoil/atoms';
+import HomeSubjectContent from '../component/home/HomeSubjectContent';
+import Topbar from '../component/common/TopBar';
+import TopBar from '../component/common/TopBar';
+import TopBarLogo from '../component/nav/TopBarLogo';
 
 const recommendedExTest = [
   {
@@ -106,20 +106,7 @@ const Home = () => {
   const animValue = useSharedValue<number>(0);
 
   return (
-    <ContainerWithTopBar>
-      <TopBar
-        header={() => <TopBarLogo />}
-        headerStyle={{alignItems: 'center'}}
-        headerRight={() => (
-          <Pressable onPress={() => console.log('headerRight pressed')}>
-            <Icon
-              source={icons.search}
-              style={{marginRight: 12 * _MPY_}}
-              size={48 * _MPY_}
-            />
-          </Pressable>
-        )}
-      />
+    <Container>
       <HomeScroll>
         {/* exhibition */}
         <RecommendExTitle>이 주의 추천 전시회</RecommendExTitle>
@@ -178,7 +165,7 @@ const Home = () => {
           contents={famousArtTest}
         />
       </HomeScroll>
-    </ContainerWithTopBar>
+    </Container>
   );
 };
 

@@ -27,11 +27,8 @@ const HomeSubjectContent = ({contents, title}: IHomeSubjectContent) => {
         <HomeTitle>{title}</HomeTitle>
         <TouchableOpacity
           onPress={() =>
-            navigate('HomeNav', {
-              screen: 'HomeList',
-              params: {
-                title,
-              },
+            navigate('HomeList', {
+              title,
             })
           }>
           <RightImg source={icons.right} />

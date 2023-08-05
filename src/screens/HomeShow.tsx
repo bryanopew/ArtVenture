@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useRoute} from '@react-navigation/native';
 import {useRecoilState} from 'recoil';
-import {currentScrState} from '../../recoil/atoms';
+import {currentScrState} from '../recoil/atoms';
 import {
   Container,
   Icon,
@@ -12,13 +12,13 @@ import {
   TextMainRg,
   TextSubMd,
   TextSubRg,
-} from '../../style/styledConst';
+} from '../style/styledConst';
 import {styled} from 'styled-components/native';
-import {SCREEN_WIDTH, _MPY_} from '../../utils/const';
+import {SCREEN_WIDTH, _MPY_} from '../utils/const';
 import {BlurView} from '@react-native-community/blur';
 import {ScrollView} from 'react-native-gesture-handler';
-import {icons} from '../../assets/icons';
-import {colors} from '../../style/colors';
+import {icons} from '../assets/icons';
+import {colors} from '../style/colors';
 
 const HomeShow = () => {
   // navigation

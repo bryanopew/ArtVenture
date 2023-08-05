@@ -16,14 +16,19 @@ import Category from '../screens/Category';
 import Bookmark from '../screens/Bookmark';
 import Korean from '../screens/Korean';
 import User from '../screens/User';
-import HomeNav from './HomeNav';
 import {useNavigation} from '@react-navigation/native';
 import {currentScrState} from '../recoil/atoms';
+import Home from '../screens/Home';
+import TopBarLogo from '../component/nav/TopBarLogo';
+import SearchBtn from '../component/nav/SearchBtn';
+import {useGoToSearchScr} from '../hooks/customNavHooks';
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNav = () => {
+  // navigation
   const navigation = useNavigation();
+  const goToSearchScr = useGoToSearchScr();
 
   // recoil
   const [currentScr, setCurrentScr] = useRecoilState(currentScrState);
@@ -32,7 +37,16 @@ const BottomTabNav = () => {
   return (
     <BottomTab.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTitle: () => <TopBarLogo />,
+        headerTitleAlign: 'center',
+        headerRight: () => (
+          <SearchBtn
+            navigationFn={() => goToSearchScr()}
+            style={{marginRight: 42 * _MPY_}}
+          />
+        ),
+        headerShadowVisible: false,
         tabBarShowLabel: false,
         tabBarStyle: {
           height: 108 * _MPY_,
@@ -48,8 +62,8 @@ const BottomTabNav = () => {
         },
       }}>
       <BottomTab.Screen
-        name="HomeNav"
-        component={HomeNav}
+        name="Home"
+        component={Home}
         options={{
           tabBarIcon: ({focused}) => (
             <IconBox>
@@ -57,7 +71,6 @@ const BottomTabNav = () => {
               {focused && <IconLine />}
             </IconBox>
           ),
-          headerShown: false,
         }}
       />
       <BottomTab.Screen

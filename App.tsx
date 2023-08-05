@@ -7,13 +7,13 @@ import {RecoilRoot} from 'recoil';
 
 function App(): JSX.Element {
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <NavigationContainer>
-        <RecoilRoot>
+    <RecoilRoot>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <NavigationContainer>
           <RootStackNav />
-        </RecoilRoot>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </RecoilRoot>
   );
 }
 
