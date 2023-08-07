@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {colors} from './colors';
-import {TOP_BAR_HEIGHT, _MPY_} from '../utils/const';
+import {TOP_BAR_HEIGHT} from '../utils/const';
 
 export interface IAvStyled {
   isActivated: boolean;
@@ -17,8 +17,8 @@ export const ContainerWithTopBar = styled(Container)`
 
 // icon
 export const Icon = styled.Image<{size?: number}>`
-  width: ${({size}) => (size ? `${size}px` : `${48 * _MPY_}px`)};
-  height: ${({size}) => (size ? `${size}px` : `${48 * _MPY_}px`)};
+  width: ${({size}) => (size ? `${size}px` : `24px`)};
+  height: ${({size}) => (size ? `${size}px` : `24px`)};
 `;
 
 // text
@@ -32,34 +32,43 @@ const TextSub = styled.Text`
 
 export const TextMainBd = styled(TextMain)`
   font-family: 'SpoqaHanSansNeo-Bold';
+  color: ${colors.textMain};
 `;
 export const TextMainMd = styled(TextMain)`
   font-family: 'SpoqaHanSansNeo-Medium';
+  color: ${colors.textMain};
 `;
 export const TextMainRg = styled(TextMain)`
   font-family: 'SpoqaHanSansNeo-Regular';
+  color: ${colors.textMain};
 `;
 export const TextMainLt = styled(TextMain)`
   font-family: 'SpoqaHanSansNeo-Light';
+  color: ${colors.textMain};
 `;
 export const TextMainTh = styled(TextMain)`
   font-family: 'SpoqaHanSansNeo-Thin';
+  color: ${colors.textMain};
 `;
 export const TextSubBd = styled(TextSub)`
   font-family: 'SpoqaHanSansNeo-Bold';
+  color: ${colors.textSub};
 `;
 export const TextSubMd = styled(TextSub)`
   font-family: 'SpoqaHanSansNeo-Medium';
+  color: ${colors.textSub};
 `;
 export const TextSubRg = styled(TextSub)`
   font-family: 'SpoqaHanSansNeo-Regular';
+  color: ${colors.textSub};
 `;
 export const TextSubLt = styled(TextSub)`
   font-family: 'SpoqaHanSansNeo-Light';
+  color: ${colors.textSub};
 `;
-TextSub;
 export const TextSubTh = styled(TextSub)`
   font-family: 'SpoqaHanSansNeo-Thin';
+  color: ${colors.textSub};
 `;
 
 export const Col = styled.View``;
@@ -70,12 +79,12 @@ export const Row = styled.View`
 
 // gap
 export const ColumnSpace = styled.View<{width?: number; height?: number}>`
-  width: ${({width}) => (width ? width : 24 * _MPY_)}px;
+  width: ${({width}) => (width ? width : 12)}px;
   height: ${({height}) => (height ? `${height}px` : `100%`)};
 `;
 export const RowSpace = styled.View<{width?: number; height?: number}>`
   width: ${({width}) => (width ? `${width}px` : `100%`)};
-  height: ${({height}) => (height ? height : 24 * _MPY_)}px;
+  height: ${({height}) => (height ? height : 12)}px;
 `;
 
 // line

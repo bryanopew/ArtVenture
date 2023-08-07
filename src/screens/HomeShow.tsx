@@ -1,4 +1,3 @@
-import {View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useRoute} from '@react-navigation/native';
 import {useRecoilState} from 'recoil';
@@ -54,36 +53,32 @@ const HomeShow = () => {
           <ExhibitionSubTitle numberOfLines={1} ellipsizeMode="tail">
             전시 / 상설 · 전체관람가
           </ExhibitionSubTitle>
-          <Row style={{marginTop: 24 * _MPY_}}>
+          <Row style={{marginTop: 12}}>
             <Icon source={icons.location} />
             <SummaryText numberOfLines={1} ellipsizeMode="tail">
               서울시립 북서울미술관 B1 어린이갤러리
             </SummaryText>
           </Row>
-          <Row style={{marginTop: 24 * _MPY_}}>
+          <Row style={{marginTop: 12}}>
             <Icon source={icons.calender} />
             <SummaryText numberOfLines={1} ellipsizeMode="tail">
               2023. 05. 02 ~ 2024. 02. 29
             </SummaryText>
           </Row>
-          <Row style={{marginTop: 24 * _MPY_}}>
+          <Row style={{marginTop: 12}}>
             <Icon source={icons.artist} />
             <SummaryText numberOfLines={1} ellipsizeMode="tail">
               서도호와 아이들
             </SummaryText>
           </Row>
-          <Row style={{marginTop: 24 * _MPY_}}>
+          <Row style={{marginTop: 12}}>
             <Icon source={icons.price} />
             <SummaryText numberOfLines={1} ellipsizeMode="tail">
               무료
             </SummaryText>
           </Row>
         </ContentBox>
-        <Line
-          direction="horizontal"
-          lineWidth={0.5}
-          style={{marginTop: 48 * _MPY_}}
-        />
+        <Line direction="horizontal" lineWidth={0.5} style={{marginTop: 24}} />
         <ContentBox>
           <GuideText>전시소개</GuideText>
           <DescripttionText
@@ -121,14 +116,14 @@ export default HomeShow;
 
 const MainImageBox = styled.View`
   width: ${SCREEN_WIDTH}px;
-  height: ${812 * _MPY_}px;
+  height: ${406 * _MPY_}px;
   align-items: center;
   justify-content: center;
 `;
 
 const MainImg = styled.Image`
-  width: ${525 * _MPY_}px;
-  height: ${700 * _MPY_}px;
+  width: ${262 * _MPY_}px;
+  height: ${350 * _MPY_}px;
 `;
 
 const BlurImg = styled.Image`
@@ -138,48 +133,49 @@ const BlurImg = styled.Image`
 `;
 
 const ContentBox = styled.View`
-  width: ${SCREEN_WIDTH - 92 * _MPY_}px;
+  width: 100%;
+  padding: 0px 22px 0px 22px;
   align-self: center;
 `;
 
 const ExhibitionTitle = styled(TextMainBd)`
-  font-size: ${44 * _MPY_}px;
-  margin-top: ${32 * _MPY_}px;
+  font-size: 22px;
+  margin-top: 16px;
 `;
 
 const ExhibitionSubTitle = styled(TextSubRg)`
-  font-size: ${24 * _MPY_}px;
-  margin-top: ${12 * _MPY_}px;
+  font-size: 12px;
+  margin-top: 6px;
 `;
 
 const SummaryText = styled(TextMainRg)`
-  font-size: ${30 * _MPY_}px;
-  margin-left: ${8 * _MPY_}px;
+  font-size: 16px;
+  margin-left: 4px;
 `;
 
 const GuideText = styled(TextMainBd)`
-  font-size: ${40 * _MPY_}px;
-  margin-top: ${64 * _MPY_}px;
+  font-size: 20px;
+  margin-top: 32px;
 `;
 
 const DescripttionText = styled(TextMainRg)`
-  font-size: ${28 * _MPY_}px;
-  margin-top: ${24 * _MPY_}px;
+  font-size: 14px;
+  margin-top: 12px;
 `;
 const LoadMoreBtn = styled.TouchableOpacity``;
 const LoadMore = styled(TextSubMd)`
-  font-size: ${28 * _MPY_}px;
+  font-size: 14px;
   align-self: flex-end;
 `;
 
 const MapBox = styled.View`
   width: 100%;
-  height: ${320 * _MPY_}px;
+  height: 160px;
   background-color: ${colors.inactivate};
-  margin-top: ${48 * _MPY_}px;
+  margin-top: 24px;
 `;
 
 const Address = styled(TextMainRg)`
-  font-size: ${28 * _MPY_}px;
-  margin-top: ${28 * _MPY_}px;
+  font-size: 14px;
+  margin-top: 14px;
 `;

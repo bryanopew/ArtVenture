@@ -1,14 +1,15 @@
 import {styled} from 'styled-components/native';
-import {_MPY_} from '../../utils/const';
 import {icons} from '../../assets/icons';
-import {StyleProp, ViewStyle} from 'react-native';
+import {ViewStyle} from 'react-native';
 
 const ArrowLeft = ({
   navigationFn,
   style,
+  arrowColor = 'black',
 }: {
   navigationFn: Function;
   style?: ViewStyle;
+  arrowColor?: 'white' | 'black';
 }) => {
   return (
     <ArrowLeftBox
@@ -16,7 +17,11 @@ const ArrowLeft = ({
       onPress={() => {
         navigationFn();
       }}>
-      <ArrowLeftImg source={icons.arrowLeft} />
+      {arrowColor === 'white' ? (
+        <ArrowLeftImg source={icons.arrowLeftWhite} />
+      ) : (
+        <ArrowLeftImg source={icons.arrowLeft} />
+      )}
     </ArrowLeftBox>
   );
 };
@@ -24,11 +29,10 @@ const ArrowLeft = ({
 export default ArrowLeft;
 
 const ArrowLeftBox = styled.TouchableOpacity`
-  /* margin-left: ${46 * _MPY_}px; */
   justify-content: center;
   align-items: center;
 `;
 const ArrowLeftImg = styled.Image`
-  width: ${48 * _MPY_}px;
-  height: ${48 * _MPY_}px;
+  width: 24px;
+  height: 24px;
 `;

@@ -1,9 +1,10 @@
 import {View, Text, ViewStyle} from 'react-native';
 import React from 'react';
-import {_MPY_} from '../../utils/const';
 import {styled} from 'styled-components/native';
+import {SCREEN_WIDTH} from '../../utils/const';
 
 interface ITopbar {
+  style?: ViewStyle;
   headerLeft?: () => React.ReactNode;
   headerRight?: () => React.ReactNode;
   header?: () => React.ReactNode;
@@ -12,6 +13,7 @@ interface ITopbar {
   headerStyle?: ViewStyle;
 }
 const TopBar = ({
+  style,
   headerLeft,
   header,
   headerRight,
@@ -20,7 +22,7 @@ const TopBar = ({
   headerRightStyle,
 }: ITopbar) => {
   return (
-    <Box>
+    <Box style={style}>
       <HeaderLeft style={headerLeftStyle}>
         {headerLeft && headerLeft()}
       </HeaderLeft>
@@ -35,23 +37,26 @@ const TopBar = ({
 export default TopBar;
 
 const Box = styled.View`
-  width: 100%;
-  height: ${110 * _MPY_}px;
+  width: ${SCREEN_WIDTH}px;
+  height: 55px;
   position: absolute;
   top: 0;
+  padding: 0px 22px 0px 22px;
   flex-direction: row;
   align-items: center;
 `;
 
 const HeaderBox = styled.View`
-  flex: 8;
+  flex: 1;
 `;
 
 const HeaderLeft = styled.TouchableOpacity`
-  flex: 1;
-  margin-left: ${23 * _MPY_}px;
+  width: 24px;
+  justify-content: center;
+  align-items: flex-start;
 `;
 const HeaderRight = styled.TouchableOpacity`
-  flex: 1;
-  margin-right: ${23 * _MPY_}px;
+  width: 24px;
+  justify-content: center;
+  align-items: flex-end;
 `;

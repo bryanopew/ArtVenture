@@ -1,5 +1,4 @@
 import {styled} from 'styled-components/native';
-import {_MPY_} from '../../utils/const';
 import {Pressable} from 'react-native';
 import {icons} from '../../assets/icons';
 import {useNavigation} from '@react-navigation/native';
@@ -16,6 +15,6 @@ const TopBarLogo = () => {
 export default TopBarLogo;
 
 const LogoImg = styled.Image`
-  width: ${50 * _MPY_}px;
-  height: ${50 * _MPY_}px;
+  width: 25px;
+  height: 25px;
 `;

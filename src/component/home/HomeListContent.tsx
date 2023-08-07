@@ -1,9 +1,10 @@
 import {View, Text, Pressable, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {styled} from 'styled-components/native';
-import {SCREEN_WIDTH, _MPY_} from '../../utils/const';
+import {SCREEN_WIDTH, testArts} from '../../utils/const';
 import {Col, Icon, Row, TextMainBd, TextSubBd} from '../../style/styledConst';
 import {icons} from '../../assets/icons';
+import {useGoToArtistScr, useGoToDetailScr} from '../../hooks/customNavHooks';
 
 interface IArts {
   name: string;
@@ -12,33 +13,6 @@ interface IArts {
   width: number;
   height: number;
 }
-const testArts = [
-  {
-    name: 'test1',
-    id: '1',
-    uri: 'https://drive.google.com/uc?export=view&id=1VNzVcpOqKsa1EhpslYtP4gPP7qNDIqXZ',
-  },
-  {
-    name: 'test2',
-    id: '2',
-    uri: 'https://drive.google.com/uc?export=view&id=1lMwt-QXHaR16TWhICNuT29mdJ6LV4_RO',
-  },
-  {
-    name: 'test3',
-    id: '3',
-    uri: 'https://drive.google.com/uc?export=view&id=1aoZ62402vjdQ1aAWpTt31xjjW1AanTaY',
-  },
-  {
-    name: 'test4',
-    id: '4',
-    uri: 'https://drive.google.com/uc?export=view&id=1M7dP3apFOsZhKDyMyI1wrhd8o7gIOR7F',
-  },
-  {
-    name: 'test5',
-    id: '5',
-    uri: 'https://drive.google.com/uc?export=view&id=1ksMsWE4a-0A6SU0lsUhQF0UcYx7Psfz2',
-  },
-];
 
 // {id: 1, name: '빈센트 반 고흐', works: [1, 2, 3, 4, 5]},
 interface IHomeListContent {
@@ -48,9 +22,16 @@ interface IHomeListContent {
   works: string[];
 }
 const HomeListContent = ({id, name, year, works}: IHomeListContent) => {
+  // navigation
+  const goToArtistScr = useGoToArtistScr();
+  const goToDetailScr = useGoToDetailScr();
+
   // useState
   const [leftArts, setLeftArts] = useState<IArts[]>();
   const [rightArts, setRightArts] = useState<IArts[]>();
+
+  // 모든 이미지의 사이즈 가져와서
+  // 왼쪽, 오른쪽 컬럼에 들어갈 사진 개수 설정
   useEffect(() => {
     const setArtNum = async () => {
       let leftNum = 0;
@@ -59,7 +40,7 @@ const HomeListContent = ({id, name, year, works}: IHomeListContent) => {
 
       for (let i = 0; i < testArts.length; i++) {
         await Image.getSize(testArts[i].uri, (width, height) => {
-          const modWidth = (SCREEN_WIDTH - (46 + 46 + 20) * _MPY_) / 2;
+          const modWidth = (SCREEN_WIDTH - (22 + 22 + 8)) / 2;
           const modHeight = (height * modWidth) / width;
           artWithSizeInEffect.push({
             ...testArts[i],
@@ -97,10 +78,7 @@ const HomeListContent = ({id, name, year, works}: IHomeListContent) => {
           <Artist>{name}</Artist>
           <Year>{year}</Year>
         </Row>
-        <RightBtn
-          onPress={() => {
-            console.log('ArtistPage로 이동');
-          }}>
+        <RightBtn onPress={() => goToArtistScr({id: '1'})}>
           <Icon source={icons.rightGrey} />
         </RightBtn>
       </ArtistBox>
@@ -111,9 +89,9 @@ const HomeListContent = ({id, name, year, works}: IHomeListContent) => {
             {leftArts.map(art => (
               <TouchableOpacity
                 key={art.id}
-                onPress={() => console.log('detail로 이동')}>
+                onPress={() => goToDetailScr({id: '1'})}>
                 <Image
-                  style={{borderRadius: 10 * _MPY_}}
+                  style={{borderRadius: 4}}
                   source={{uri: art.uri, width: art.width, height: art.height}}
                 />
               </TouchableOpacity>
@@ -125,9 +103,9 @@ const HomeListContent = ({id, name, year, works}: IHomeListContent) => {
             {rightArts.map(art => (
               <TouchableOpacity
                 key={art.id}
-                onPress={() => console.log('detail로 이동')}>
+                onPress={() => goToDetailScr({id: '1'})}>
                 <Image
-                  style={{borderRadius: 10 * _MPY_}}
+                  style={{borderRadius: 4}}
                   source={{uri: art.uri, width: art.width, height: art.height}}
                 />
               </TouchableOpacity>
@@ -142,9 +120,9 @@ const HomeListContent = ({id, name, year, works}: IHomeListContent) => {
 export default HomeListContent;
 
 const ContentBox = styled.View`
-  margin-top: ${60 * _MPY_}px;
-  padding-left: ${46 * _MPY_}px;
-  padding-right: ${46 * _MPY_}px;
+  margin-top: 40px;
+  padding-left: 22px;
+  padding-right: 22px;
 `;
 
 const ArtistBox = styled.View`
@@ -154,25 +132,25 @@ const ArtistBox = styled.View`
 `;
 
 const Artist = styled(TextMainBd)`
-  font-size: ${34 * _MPY_}px;
+  font-size: 16px;
 `;
 const Year = styled(TextSubBd)`
-  font-size: ${24 * _MPY_}px;
-  margin-left: ${8 * _MPY_}px;
+  font-size: 12px;
+  margin-left: 4px;
 `;
 
 const RightBtn = styled.TouchableOpacity`
-  margin-right: ${-16 * _MPY_}px;
+  margin-right: -6px;
 `;
 
 const ArtBox = styled.View`
   width: 100%;
-  margin-top: ${24 * _MPY_}px;
+  margin-top: 12px;
   flex-direction: row;
-  column-gap: ${20 * _MPY_}px;
+  column-gap: 8px;
 `;
 
 const ArtColumn = styled.View`
   flex: 1;
-  row-gap: ${20 * _MPY_}px;
+  row-gap: 8px;
 `;

@@ -1,6 +1,6 @@
 import {View, Text, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {HOME_ART_HEIGHT, _MPY_} from '../../utils/const';
+import {HOME_ART_HEIGHT} from '../../utils/const';
 import {styled} from 'styled-components/native';
 
 const ArtImgWithDynSize = ({uri}: {uri: string}) => {
@@ -25,5 +25,5 @@ const ArtImgWithDynSize = ({uri}: {uri: string}) => {
 export default ArtImgWithDynSize;
 
 const ArtImg = styled.Image`
-  border-radius: ${10 * _MPY_}px;
+  border-radius: 4px;
 `;

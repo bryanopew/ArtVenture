@@ -8,7 +8,6 @@ import {useRecoilState} from 'recoil';
 
 // util, const, style
 import {icons} from '../assets/icons';
-import {_MPY_} from '../utils/const';
 import {colors} from '../style/colors';
 
 // components
@@ -20,7 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import {currentScrState} from '../recoil/atoms';
 import Home from '../screens/Home';
 import TopBarLogo from '../component/nav/TopBarLogo';
-import SearchBtn from '../component/nav/SearchBtn';
+import {SearchBtn} from '../component/nav/NavBtns';
 import {useGoToSearchScr} from '../hooks/customNavHooks';
 
 const BottomTab = createBottomTabNavigator();
@@ -43,13 +42,13 @@ const BottomTabNav = () => {
         headerRight: () => (
           <SearchBtn
             navigationFn={() => goToSearchScr()}
-            style={{marginRight: 42 * _MPY_}}
+            style={{marginRight: 20}}
           />
         ),
         headerShadowVisible: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 108 * _MPY_,
+          height: 54,
           borderTopWidth: 0,
           elevation: 30,
           shadowColor: colors.black,
@@ -134,14 +133,14 @@ const IconBox = styled.View`
 `;
 
 const IconImg = styled.Image`
-  width: ${48 * _MPY_}px;
-  height: ${48 * _MPY_}px;
+  width: 24px;
+  height: 24px;
 `;
 
 const IconLine = styled.View`
-  width: ${60 * _MPY_}px;
-  height: ${4 * _MPY_}px;
+  width: 30px;
+  height: 2px;
   position: absolute;
-  bottom: ${18 * _MPY_}px;
+  bottom: 9px;
   background-color: ${colors.black};
 `;

@@ -2,7 +2,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {styled} from 'styled-components/native';
 import {Row, TextMainBd} from '../../style/styledConst';
-import {HOME_ART_HEIGHT, SCREEN_WIDTH, _MPY_} from '../../utils/const';
+import {HOME_ART_HEIGHT, SCREEN_WIDTH} from '../../utils/const';
 import {useNavigation} from '@react-navigation/native';
 import {icons} from '../../assets/icons';
 import ArtImgWithDynSize from '../common/ArtImgWithDynSize';
@@ -20,9 +20,9 @@ const HomeSubjectContent = ({contents, title}: IHomeSubjectContent) => {
       {/* homeList */}
       <Row
         style={{
-          marginTop: 64 * _MPY_,
+          marginTop: 28,
           justifyContent: 'space-between',
-          marginHorizontal: 46 * _MPY_,
+          marginHorizontal: 22,
         }}>
         <HomeTitle>{title}</HomeTitle>
         <TouchableOpacity
@@ -34,7 +34,9 @@ const HomeSubjectContent = ({contents, title}: IHomeSubjectContent) => {
           <RightImg source={icons.right} />
         </TouchableOpacity>
       </Row>
-      <HomeHorizontalScroll horizontal={true}>
+      <HomeHorizontalScroll
+        horizontal={true}
+        contentContainerStyle={{paddingLeft: 22, paddingRight: 10}}>
         {contents.map((art, index) => (
           <ArtBox
             key={index}
@@ -53,21 +55,18 @@ const HomeSubjectContent = ({contents, title}: IHomeSubjectContent) => {
 export default HomeSubjectContent;
 
 const HomeTitle = styled(TextMainBd)`
-  font-size: ${34 * _MPY_}px;
+  font-size: 16px;
 `;
 
 const RightImg = styled.Image`
-  width: ${48 * _MPY_}px;
-  height: ${48 * _MPY_}px;
+  width: 24px;
+  height: 24px;
 `;
 
 const HomeHorizontalScroll = styled.ScrollView`
-  width: ${SCREEN_WIDTH}px;
-  margin-top: ${24 * _MPY_}px;
-  padding-left: ${46 * _MPY_}px;
-  padding-right: ${46 * _MPY_}px;
+  margin-top: 12px;
 `;
 
 const ArtBox = styled.TouchableOpacity`
-  margin-right: ${24 * _MPY_}px;
+  margin-right: 12px;
 `;

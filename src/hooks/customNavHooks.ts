@@ -9,8 +9,12 @@ export const useGoToHomeScr = () => {
   const {navigate} = useNavigation();
   return () => navigate('Home');
 };
-
-export const useGoToDetailScr = (params: {title: string; id: string}) => {
+export const useGoToArtistScr = () => {
   const {navigate} = useNavigation();
-  return () => navigate('Detail', params);
+  return (params: {id: string; name?: string}) => navigate('Artist', params);
+};
+
+export const useGoToDetailScr = () => {
+  const {navigate} = useNavigation();
+  return (params: {id: string; title?: string}) => navigate('Detail', params);
 };

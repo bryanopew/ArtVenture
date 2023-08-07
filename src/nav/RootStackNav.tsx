@@ -3,20 +3,21 @@ import BottomTabNav from './BottomTabNav';
 import Detail from '../screens/Detail';
 import ArrowLeft from '../component/nav/ArrowLeft';
 import {useNavigation} from '@react-navigation/native';
-import {_MPY_} from '../utils/const';
 import {Icon} from '../style/styledConst';
 import {icons} from '../assets/icons';
 import HomeShow from '../screens/HomeShow';
 import HomeList from '../screens/HomeList';
 import TopBarLogo from '../component/nav/TopBarLogo';
-import SearchBtn from '../component/nav/SearchBtn';
+import {FilterBtn, SearchBtn} from '../component/nav/NavBtns';
 import Search from '../screens/Search';
 import {useGoToSearchScr} from '../hooks/customNavHooks';
+import Filter from '../screens/Filter';
+import Artist from '../screens/Artist';
 
 const Stack = createNativeStackNavigator();
 
 // ****************************
-// rootNav에서 header margin : 40 * _MPY_ | 내부에서는 12 * _MPY_
+// rootNav에서 header margin : 20 | 내부에서는 6
 // ****************************
 
 const RootStackNav = () => {
@@ -44,15 +45,10 @@ const RootStackNav = () => {
               navigationFn={() => {
                 goBack();
               }}
-              style={{marginLeft: 12 * _MPY_}}
+              style={{marginLeft: 6}}
             />
           ),
-          headerRight: () => (
-            <SearchBtn
-              navigationFn={() => goToSearchScr()}
-              style={{marginRight: 12 * _MPY_}}
-            />
-          ),
+          headerRight: () => <SearchBtn style={{marginRight: 6}} />,
         }}
       />
       <Stack.Screen
@@ -67,15 +63,10 @@ const RootStackNav = () => {
               navigationFn={() => {
                 goBack();
               }}
-              style={{marginLeft: 12 * _MPY_}}
+              style={{marginLeft: 6}}
             />
           ),
-          headerRight: () => (
-            <SearchBtn
-              navigationFn={() => goToSearchScr()}
-              style={{marginRight: 12 * _MPY_}}
-            />
-          ),
+          headerRight: () => <SearchBtn style={{marginRight: 6}} />,
         }}
       />
 
@@ -83,23 +74,40 @@ const RootStackNav = () => {
         name="Search"
         component={Search}
         options={{
-          headerShown: true,
-          headerTitle: () => null,
+          headerShown: false,
+          headerLeft: () => (
+            <ArrowLeft
+              navigationFn={() => {
+                goBack();
+              }}
+              style={{marginLeft: 6}}
+            />
+          ),
+          headerRight: () => <FilterBtn style={{marginRight: 6}} />,
+        }}
+      />
+      <Stack.Screen
+        name="Filter"
+        component={Filter}
+        options={{
+          headerRight: () => <Icon source={icons.more} />,
           headerTitleAlign: 'left',
           headerLeft: () => (
             <ArrowLeft
               navigationFn={() => {
                 goBack();
               }}
-              style={{marginLeft: 12 * _MPY_}}
+              style={{marginLeft: 6}}
             />
           ),
-          headerRight: () => (
-            <SearchBtn
-              navigationFn={() => goToSearchScr()}
-              style={{marginRight: 12 * _MPY_}}
-            />
-          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Artist"
+        component={Artist}
+        options={{
+          headerRight: () => <Icon source={icons.more} />,
         }}
       />
       <Stack.Screen

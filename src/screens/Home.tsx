@@ -111,10 +111,10 @@ const Home = () => {
         {/* exhibition */}
         <RecommendExTitle>이 주의 추천 전시회</RecommendExTitle>
         <Carousel
-          style={{marginTop: 16 * _MPY_}}
+          style={{marginTop: 8}}
           loop
           width={SCREEN_WIDTH}
-          height={700 * _MPY_}
+          height={350 * _MPY_}
           mode="parallax"
           modeConfig={{
             parallaxScrollingScale: 0.95,
@@ -150,7 +150,7 @@ const Home = () => {
           ))}
         </PaginationBox>
 
-        <RowSpace style={{height: 32 * _MPY_}} />
+        <RowSpace style={{height: 16}} />
         {/* homeList */}
         <HomeSubjectContent
           title="유명작가 그림 모음집"
@@ -206,9 +206,9 @@ const Pagination: React.FC<{
     <Animated.View
       style={[
         {
-          width: 10 * _MPY_,
-          height: 10 * _MPY_,
-          borderRadius: 4 * _MPY_,
+          width: 5,
+          height: 5,
+          borderRadius: 3,
         },
         animStyle,
       ]}
@@ -223,27 +223,27 @@ export default Home;
 const HomeScroll = styled.ScrollView``;
 
 const RecommendExTitle = styled(TextMainBd)`
-  font-size: ${40 * _MPY_}px;
-  margin-top: ${32 * _MPY_}px;
-  margin-left: ${46 * _MPY_}px;
+  font-size: 20px;
+  margin-top: 16px;
+  margin-left: 22px;
 `;
 
 const RecommendExBox = styled.Pressable`
-  width: ${525 * _MPY_}px;
-  height: ${700 * _MPY_}px;
+  width: ${262 * _MPY_}px;
+  height: ${350 * _MPY_}px;
   justify-content: center;
   align-items: center;
   align-self: center;
   border-width: 1px;
 `;
 const RecommendExImg = styled.Image`
-  width: ${525 * _MPY_}px;
-  height: ${700 * _MPY_}px;
+  width: ${262 * _MPY_}px;
+  height: ${350 * _MPY_}px;
 `;
 
 const PaginationBox = styled.View`
   align-self: center;
   flex-direction: row;
-  margin-top: ${32 * _MPY_}px;
-  column-gap: ${14 * _MPY_}px;
+  margin-top: 16px;
+  column-gap: 8px;
 `;
