@@ -16,35 +16,24 @@ import Bookmark from '../screens/Bookmark';
 import Korean from '../screens/Korean';
 import User from '../screens/User';
 import {useNavigation} from '@react-navigation/native';
-import {currentScrState} from '../recoil/atoms';
+import {currentScrState} from '../recoil/states';
 import Home from '../screens/Home';
 import TopBarLogo from '../component/nav/TopBarLogo';
 import {SearchBtn} from '../component/nav/NavBtns';
 import {useGoToSearchScr} from '../hooks/customNavHooks';
+import {TextMainBd} from '../style/styledConst';
+import ArrowLeft from '../component/nav/ArrowLeft';
 
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNav = () => {
-  // navigation
-  const navigation = useNavigation();
-  const goToSearchScr = useGoToSearchScr();
-
-  // recoil
-  const [currentScr, setCurrentScr] = useRecoilState(currentScrState);
-  console.log('BottomTabNav currentScr: ', currentScr);
-
   return (
     <BottomTab.Navigator
       screenOptions={{
         headerShown: true,
         headerTitle: () => <TopBarLogo />,
         headerTitleAlign: 'center',
-        headerRight: () => (
-          <SearchBtn
-            navigationFn={() => goToSearchScr()}
-            style={{marginRight: 20}}
-          />
-        ),
+        headerRight: () => <SearchBtn style={{marginRight: 22}} />,
         headerShadowVisible: false,
         tabBarShowLabel: false,
         tabBarStyle: {
@@ -76,6 +65,11 @@ const BottomTabNav = () => {
         name="Category"
         component={Category}
         options={{
+          headerShown: true,
+          headerLeft: () => <ArrowLeft style={{marginLeft: 22}} />,
+          headerTitle: () => <HeaderTitleText>카테고리</HeaderTitleText>,
+          headerTitleAlign: 'left',
+          headerRight: () => <SearchBtn style={{marginRight: 22}} />,
           tabBarIcon: ({focused}) => (
             <IconBox>
               <IconImg source={icons.category} />
@@ -100,12 +94,16 @@ const BottomTabNav = () => {
         name="Korean"
         component={Korean}
         options={{
+          headerShown: true,
+          headerLeft: () => <ArrowLeft style={{marginLeft: 22}} />,
           tabBarIcon: ({focused}) => (
             <IconBox>
               <IconImg source={icons.korean} />
               {focused && <IconLine />}
             </IconBox>
           ),
+          headerTitle: () => null,
+          headerRight: () => null,
         }}
       />
       <BottomTab.Screen
@@ -143,4 +141,8 @@ const IconLine = styled.View`
   position: absolute;
   bottom: 9px;
   background-color: ${colors.black};
+`;
+
+const HeaderTitleText = styled(TextMainBd)`
+  font-size: 20px;
 `;

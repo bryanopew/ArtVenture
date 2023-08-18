@@ -5,13 +5,29 @@ import {Row, TextMainBd} from '../../style/styledConst';
 import {HOME_ART_HEIGHT, SCREEN_WIDTH} from '../../utils/const';
 import {useNavigation} from '@react-navigation/native';
 import {icons} from '../../assets/icons';
+import {useListArt, useListArtBySubject} from '../../query/queries/art';
 import ArtImgWithDynSize from '../common/ArtImgWithDynSize';
+import FastImage from 'react-native-fast-image';
+import {
+  useListArtistIdBySubject,
+  useListArtistSummaryBySubject,
+} from '../../query/queries/artist';
+import {useGoToDetailScr} from '../../hooks/customNavHooks';
 
 interface IHomeSubjectContent {
-  contents: Array<{name: string; uri: string; id: string}>;
-  title: string;
+  subject: string;
 }
-const HomeSubjectContent = ({contents, title}: IHomeSubjectContent) => {
+const HomeSubjectContent = ({subject}: IHomeSubjectContent) => {
+  // navigation
+  const goToDetailScr = useGoToDetailScr();
+
+  // react-query
+  const {data: artistIdBySubject} = useListArtistIdBySubject(subject);
+  const {data: artBySubject} = useListArt({
+    enabled: !!artistIdBySubject,
+    artistIdArr: artistIdBySubject,
+  });
+
   // navigation
   const {navigate} = useNavigation();
 
@@ -24,27 +40,34 @@ const HomeSubjectContent = ({contents, title}: IHomeSubjectContent) => {
           justifyContent: 'space-between',
           marginHorizontal: 22,
         }}>
-        <HomeTitle>{title}</HomeTitle>
+        <HomeTitle>{subject}</HomeTitle>
         <TouchableOpacity
           onPress={() =>
             navigate('HomeList', {
-              title,
+              subject,
             })
           }>
           <RightImg source={icons.right} />
         </TouchableOpacity>
       </Row>
       <HomeHorizontalScroll
+        showsHorizontalScrollIndicator={false}
         horizontal={true}
         contentContainerStyle={{paddingLeft: 22, paddingRight: 10}}>
-        {contents.map((art, index) => (
+        {artBySubject?.slice(0, 5).map((art, index) => (
           <ArtBox
             key={index}
             onPress={() => {
-              console.log(art.name, 'pressed');
-              navigate('Detail', {name: art.name, uri: art.uri});
+              goToDetailScr({artId: art.artId});
             }}>
-            <ArtImgWithDynSize uri={art.uri} />
+            <FastImage
+              style={{width: 166, height: 166, borderRadius: 4}}
+              source={{
+                uri: art.imgLink,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
           </ArtBox>
         ))}
       </HomeHorizontalScroll>
@@ -69,4 +92,10 @@ const HomeHorizontalScroll = styled.ScrollView`
 
 const ArtBox = styled.TouchableOpacity`
   margin-right: 12px;
+`;
+
+const ArtImg = styled.Image`
+  width: 166px;
+  height: 166px;
+  border-radius: 4px;
 `;

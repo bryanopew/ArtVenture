@@ -1,21 +1,22 @@
 import {styled} from 'styled-components/native';
 import {icons} from '../../assets/icons';
 import {ViewStyle} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const ArrowLeft = ({
-  navigationFn,
   style,
   arrowColor = 'black',
 }: {
-  navigationFn: Function;
   style?: ViewStyle;
   arrowColor?: 'white' | 'black';
 }) => {
+  // navigation
+  const {goBack} = useNavigation();
   return (
     <ArrowLeftBox
       style={{...style}}
       onPress={() => {
-        navigationFn();
+        goBack();
       }}>
       {arrowColor === 'white' ? (
         <ArrowLeftImg source={icons.arrowLeftWhite} />

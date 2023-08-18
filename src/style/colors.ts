@@ -5,4 +5,5 @@ export const colors = {
   textMain: '#111111',
   inactivate: '#B7B7B7',
   line: '#707070',
+  link: '#3498DB',
 };

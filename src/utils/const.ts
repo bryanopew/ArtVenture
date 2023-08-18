@@ -10,9 +10,64 @@ export const _MPY_ = SCREEN_WIDTH / guidelineBaseWidth;
 
 // common
 export const TOP_BAR_HEIGHT = 55;
+export const HOME_LIST_ITEM_HEIGHT = 84 + (SCREEN_WIDTH - 22 - 22 - 8);
+export const SIX_ITEM_HEIGHT = SCREEN_WIDTH - (22 + 22) - 8 * 2 + 16 + 8;
+export const getFlatListItemLayout = (
+  data: any,
+  index: number,
+  height: number,
+) => ({
+  length: height,
+  offset: height * index,
+  index,
+});
 
 // Home
 export const HOME_ART_HEIGHT = 166 * _MPY_;
+
+// Filter
+export const ARTS_MIN_YEAR = 1435;
+export const ARTS_MAX_YEAR = 1919;
+
+// Category
+
+// artType
+export const artTypes = ['인물화', '풍경화', '정물화', '제단화', '종교화'];
+
+// keyword
+export const keywords = [
+  '사람',
+  '미소',
+  '신화',
+  '여성',
+  '남성',
+  '종교',
+  '마을',
+  '건물',
+  '얼굴',
+  '춤',
+  '별',
+  '밤',
+  '도시',
+  '어둠',
+  '풍경',
+  '술',
+  '꽃',
+  '기차',
+  '악기',
+  '목욕',
+  '산',
+  '고통',
+];
+
+// artStyles
+export const artStyles = [
+  '르네상스',
+  '바로크',
+  '상징주의',
+  '인상주의',
+  '현실주의',
+];
 
 ///////////////////////////// test
 export const testArts = [
@@ -89,29 +144,5 @@ export const testArts = [
     year: '1990',
   },
 ];
-export const testArtists = [
-  {
-    id: '1',
-    name: '빈센트 반 고흐',
-    year: '1853. 3. 30 - 1890. 7. 29.',
-    works: ['1', '2', '3', '4', '5'],
-    pic: 'https://drive.google.com/uc?export=view&id=1qG3nMoR1Ts_e5d7kM2aaGF1DOtE1LvJP',
-    artistColor: '#04343a',
-  },
-  {
-    id: '2',
-    name: '레오나르도 다빈치',
-    year: '1452. 4. 15. - 1519. 5. 2.',
-    works: ['1', '2', '3', '4', '5'],
-    pic: 'https://drive.google.com/uc?export=view&id=1fjvekcJy9RAnXrf1F8u9dn7yt7mKAB_s',
-    artistColor: '#514933',
-  },
-  {
-    id: '3',
-    name: '라파엘로 산치오',
-    year: '1483. ?. - 1520. 4. 6',
-    works: ['1', '2', '3', '4', '5'],
-    pic: 'https://drive.google.com/uc?export=view&id=16qvp33nNKbvBsLzkwxLnRp3Gd6ot5q8m',
-    artistColor: '#5b2f1c',
-  },
-];
+
+export const G_API_K = 'AIzaSyBny--0qARTfo5CgvyqBLRoXvoUiiidIbE';

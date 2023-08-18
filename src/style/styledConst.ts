@@ -2,26 +2,7 @@ import styled from 'styled-components/native';
 import {colors} from './colors';
 import {TOP_BAR_HEIGHT} from '../utils/const';
 
-export interface IAvStyled {
-  isActivated: boolean;
-}
-
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: ${colors.white};
-`;
-
-export const ContainerWithTopBar = styled(Container)`
-  padding-top: ${TOP_BAR_HEIGHT}px;
-`;
-
-// icon
-export const Icon = styled.Image<{size?: number}>`
-  width: ${({size}) => (size ? `${size}px` : `24px`)};
-  height: ${({size}) => (size ? `${size}px` : `24px`)};
-`;
-
-// text
+///////////////// text ///////////////////////////
 const TextMain = styled.Text`
   color: ${colors.textMain};
 `;
@@ -71,6 +52,29 @@ export const TextSubTh = styled(TextSub)`
   color: ${colors.textSub};
 `;
 
+///////////////// container //////////////////////
+export const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: ${colors.white};
+`;
+
+export const ContainerWithTopBar = styled(Container)`
+  padding-top: ${TOP_BAR_HEIGHT}px;
+`;
+
+///////////////// navigation comps //////////////////////
+export const NavHeader = styled(TextMainBd)`
+  font-size: 20px;
+  margin-left: 12px;
+`;
+
+///////////////// icons  //////////////////////
+export const Icon = styled.Image<{size?: number}>`
+  width: ${({size}) => (size ? `${size}px` : `24px`)};
+  height: ${({size}) => (size ? `${size}px` : `24px`)};
+`;
+
+///////////////// common comps //////////////////////
 export const Col = styled.View``;
 export const Row = styled.View`
   flex-direction: row;
@@ -98,4 +102,15 @@ export const Line = styled.View<{
   height: ${({direction, lineWidth}) =>
     direction === 'horizontal' ? `${lineWidth}px` : `100%`};
   background-color: ${({color}) => (color ? color : colors.line)};
+`;
+
+// button
+export const BtnCTA = styled.TouchableOpacity`
+  width: 100%;
+  height: 44px;
+  background-color: ${colors.black};
+  border-radius: 22px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
 `;

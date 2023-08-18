@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useRoute} from '@react-navigation/native';
 import {useRecoilState} from 'recoil';
-import {currentScrState} from '../recoil/atoms';
+import {currentScrState} from '../recoil/states';
 import {
   Container,
   Icon,
@@ -18,21 +18,23 @@ import {BlurView} from '@react-native-community/blur';
 import {ScrollView} from 'react-native-gesture-handler';
 import {icons} from '../assets/icons';
 import {colors} from '../style/colors';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import {useGetGeometry} from '../query/queries/address';
 
 const HomeShow = () => {
   // navigation
   const route = useRoute();
   const isFocused = useIsFocused();
 
-  // recoil
-  const [currentScr, setCurrentScr] = useRecoilState(currentScrState);
+  // react-query
+  const testAddress = '서울 노원구 동일로 1238';
+  const {data: geoData} = useGetGeometry(testAddress);
 
   // useState
   const [loadMore, setLoadMore] = useState(false);
 
-  useEffect(() => {
-    isFocused && setCurrentScr(route.name);
-  }, [route.name]);
+  console.log('HomeShow: ', geoData?.results[0].geometry.location);
+
   return (
     <Container>
       <ScrollView contentContainerStyle={{paddingBottom: 64}}>
@@ -104,8 +106,31 @@ const HomeShow = () => {
               <LoadMore>더보기</LoadMore>
             </LoadMoreBtn>
           )}
-          <MapBox></MapBox>
-          <Address>서울 노원구 동일로 1238</Address>
+          <MapBox>
+            {geoData && (
+              <MapView
+                style={{flex: 1}}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={{
+                  latitude: geoData?.results[0].geometry.location.lat,
+                  latitudeDelta: 0,
+                  longitude: geoData?.results[0].geometry.location.lng,
+                  longitudeDelta: 0,
+                }}
+                minZoomLevel={10}
+                maxZoomLevel={15}>
+                <Marker
+                  coordinate={{
+                    latitude: geoData?.results[0].geometry.location.lat,
+                    longitude: geoData?.results[0].geometry.location.lng,
+                  }}
+                  pinColor="red"
+                  title="wnfkwnklefnkfleknwlnkfe"
+                />
+              </MapView>
+            )}
+          </MapBox>
+          <Address>서울시립 북서울 미술관 | 서울 노원구 동일로 1238</Address>
         </ContentBox>
       </ScrollView>
     </Container>
@@ -170,7 +195,7 @@ const LoadMore = styled(TextSubMd)`
 
 const MapBox = styled.View`
   width: 100%;
-  height: 160px;
+  height: 300px;
   background-color: ${colors.inactivate};
   margin-top: 24px;
 `;
