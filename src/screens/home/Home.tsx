@@ -3,12 +3,12 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   _MPY_,
-} from '../utils/const';
+} from '../../utils/const';
 import React, {useEffect, useMemo} from 'react';
 import styled from 'styled-components/native';
-import {Container, RowSpace, TextMainBd} from '../style/styledConst';
+import {Container, RowSpace, TextMainBd} from '../../style/styledConst';
 import Carousel from 'react-native-reanimated-carousel';
-import {colors} from '../style/colors';
+import {colors} from '../../style/colors';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -17,8 +17,8 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {useNavigation} from '@react-navigation/native';
-import HomeSubjectContent from '../component/home/HomeSubjectContent';
-import {useListSubject} from '../query/queries/subject';
+import HomeSubjectContent from '../../component/home/HomeSubjectContent';
+import {useListSubject} from '../../query/queries/subject';
 
 const recommendedExTest = [
   {

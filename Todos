@@ -2,3 +2,9 @@
 
 265ce60ef234383ff905583f407a13a4
 AIzaSyBny--0qARTfo5CgvyqBLRoXvoUiiidIbE
+
+
+
+
+android/app/src/main/assets 확인
+test: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/

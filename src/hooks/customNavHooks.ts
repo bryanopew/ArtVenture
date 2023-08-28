@@ -3,7 +3,7 @@ import {IArt} from '../query/types/art';
 
 export const useGoToSearchScr = () => {
   const {navigate} = useNavigation();
-  return (params?: {filteredArts: IArt[]}) => navigate('Search', params);
+  return (params?: {isResultShown: boolean}) => navigate('Search', params);
 };
 
 export const useGoToHomeScr = () => {

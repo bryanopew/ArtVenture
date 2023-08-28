@@ -1,6 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabNav from './BottomTabNav';
-import Detail from '../screens/Detail';
+import Detail from '../screens/common/Detail';
 import ArrowLeft from '../component/nav/ArrowLeft';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -11,20 +11,25 @@ import {
   TextMainRg,
 } from '../style/styledConst';
 import {icons} from '../assets/icons';
-import HomeShow from '../screens/HomeShow';
-import HomeList from '../screens/HomeList';
+import HomeShow from '../screens/home/HomeShow';
+import HomeList from '../screens/home/HomeList';
 import TopBarLogo from '../component/nav/TopBarLogo';
 import {FilterBtn, SearchBtn} from '../component/nav/NavBtns';
-import Search from '../screens/Search';
+import Search from '../screens/common/Search';
 import {useGoToSearchScr} from '../hooks/customNavHooks';
-import Filter from '../screens/Filter';
-import Artist from '../screens/Artist';
+import Filter from '../screens/common/Filter';
+import Artist from '../screens/common/Artist';
 import {styled} from 'styled-components/native';
 import HeaderRight from '../component/nav/HeaderRight';
 import {useResetRecoilState} from 'recoil';
 import {filterState} from '../recoil/states';
-import CategoryList from '../screens/CategoryList';
-import CategoryShow from '../screens/CategoryShow';
+import CategoryList from '../screens/category/CategoryList';
+import CategoryShow from '../screens/category/CategoryShow';
+import BookmarkDetail from '../screens/bookmark/BookmarkDetail';
+import Account from '../screens/mypage/Account';
+import Notice from '../screens/mypage/Notice';
+import Consult from '../screens/mypage/Consult';
+import Question from '../screens/mypage/Question';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,8 +51,10 @@ const RootStackNav = () => {
         headerShadowVisible: false,
         headerBackVisible: false,
       }}>
-      {/* BottomTab: Home | Category | Bookmark | Korean | User */}
+      {/* BottomTab: Home | Category | Bookmark | Korean | Mypage */}
       <Stack.Screen name="BottomTab" component={BottomTabNav} />
+
+      {/* Home */}
       <Stack.Screen
         name="HomeShow"
         component={HomeShow}
@@ -71,6 +78,7 @@ const RootStackNav = () => {
         }}
       />
 
+      {/* Search and Filter */}
       <Stack.Screen
         name="Search"
         component={Search}
@@ -98,6 +106,7 @@ const RootStackNav = () => {
         }}
       />
 
+      {/* Artist */}
       <Stack.Screen
         name="Artist"
         component={Artist}
@@ -107,17 +116,9 @@ const RootStackNav = () => {
           }
         }
       />
-      <Stack.Screen
-        name="Detail"
-        component={Detail}
-        options={{
-          headerShown: true,
-          headerRight: () => (
-            <Icon source={icons.more} style={{marginRight: 6}} />
-          ),
-          headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
-        }}
-      />
+      <Stack.Screen name="Detail" component={Detail} />
+
+      {/* Category */}
       <Stack.Screen
         name="CategoryList"
         component={CategoryList}
@@ -138,6 +139,58 @@ const RootStackNav = () => {
           headerTitleAlign: 'left',
           headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
           headerRight: () => <SearchBtn style={{marginRight: 6}} />,
+        }}
+      />
+
+      {/* Bookmark */}
+      <Stack.Screen
+        name="BookmarkDetail"
+        component={BookmarkDetail}
+        options={{
+          headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
+          headerRight: () => <SearchBtn style={{marginRight: 6}} />,
+        }}
+      />
+
+      {/* Mypage */}
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{
+          headerShown: true,
+          headerTitle: () => <NavHeader>내 정보</NavHeader>,
+          headerTitleAlign: 'left',
+          headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
+        }}
+      />
+      <Stack.Screen
+        name="Notice"
+        component={Notice}
+        options={{
+          headerShown: true,
+          headerTitle: () => <NavHeader>공지사항</NavHeader>,
+          headerTitleAlign: 'left',
+          headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
+        }}
+      />
+      <Stack.Screen
+        name="Consult"
+        component={Consult}
+        options={{
+          headerShown: true,
+          headerTitle: () => <NavHeader>채팅상담</NavHeader>,
+          headerTitleAlign: 'left',
+          headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
+        }}
+      />
+      <Stack.Screen
+        name="Question"
+        component={Question}
+        options={{
+          headerShown: true,
+          headerTitle: () => <NavHeader>자주하는 질문</NavHeader>,
+          headerTitleAlign: 'left',
+          headerLeft: () => <ArrowLeft style={{marginLeft: 6}} />,
         }}
       />
     </Stack.Navigator>

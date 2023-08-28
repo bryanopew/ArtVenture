@@ -6,22 +6,22 @@ import {
   Row,
   TextMainBd,
   TextMainMd,
-} from '../style/styledConst';
-import {useListArtist} from '../query/queries/artist';
-import {IArtist} from '../query/types/artists';
-import {artStyles, artTypes, keywords} from '../utils/const';
+} from '../../style/styledConst';
+import {useListArtist} from '../../query/queries/artist';
+import {IArtist} from '../../query/types/artists';
+import {artStyles, artTypes, keywords} from '../../utils/const';
 import {
   FlatList,
   ScrollView,
   TouchableOpacity,
 } from 'react-native-gesture-handler';
-import {icons} from '../assets/icons';
+import {icons} from '../../assets/icons';
 import {styled} from 'styled-components/native';
-import {colors} from '../style/colors';
+import {colors} from '../../style/colors';
 import {
   useGoToArtistScr,
   useGoToCategoryShowScr,
-} from '../hooks/customNavHooks';
+} from '../../hooks/customNavHooks';
 import {useNavigation} from '@react-navigation/native';
 
 const ContentTitle = ({title}: {title: string}) => {

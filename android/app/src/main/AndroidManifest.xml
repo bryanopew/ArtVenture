@@ -1,7 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.artventure">
 
+    <queries>
+        <package android:name="com.artventure.store" />
+        <package android:name="com.artventure.services" />
+    </queries>
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- required for react-native-share base64 sharing -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
       android:name=".MainApplication"
@@ -10,6 +17,15 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.provider"
+        android:grantUriPermissions="true"
+        android:exported="false">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/filepaths" />
+      </provider>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

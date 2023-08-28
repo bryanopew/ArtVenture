@@ -6,10 +6,10 @@ import {
   Icon,
   TextMainBd,
   TextMainRg,
-} from '../style/styledConst';
+} from '../../style/styledConst';
 import {styled} from 'styled-components/native';
-import {colors} from '../style/colors';
-import {icons} from '../assets/icons';
+import {colors} from '../../style/colors';
+import {icons} from '../../assets/icons';
 
 const Korean = () => {
   return (

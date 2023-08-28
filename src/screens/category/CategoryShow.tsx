@@ -1,11 +1,11 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {Container, NavHeader, RowSpace} from '../style/styledConst';
+import {Container, NavHeader, RowSpace} from '../../style/styledConst';
 import {useEffect, useMemo, useState} from 'react';
-import {useListArt} from '../query/queries/art';
-import {IArt} from '../query/types/art';
+import {useListArt} from '../../query/queries/art';
+import {IArt} from '../../query/types/art';
 import {Text} from 'react-native';
-import SixItemsFlatList from '../component/common/SixItems';
-import {reGroupArtsBySix} from '../utils/reGroupArts';
+import SixItemsFlatList from '../../component/common/SixItems';
+import {reGroupArtsBySix} from '../../utils/reGroupArts';
 
 const CategoryShow = () => {
   // navigation
@@ -34,11 +34,8 @@ const CategoryShow = () => {
     const artDataKey = Object.keys(route.params)[0];
     const artDataValue = Object.values(route.params)[0];
     const fData = artData.filter(item => {
-      if (artDataKey === 'style') {
-        console.log(item.style, artDataValue);
-        return item.style === artDataValue;
-      }
-      console.log(item[artDataKey].includes(artDataValue));
+      // style만 string. 나머지는 string[]
+      if (artDataKey === 'style') return item.style === artDataValue;
       return item[artDataKey].includes(artDataValue);
     });
     const regrouped = reGroupArtsBySix(fData);

@@ -6,9 +6,11 @@ import {useNavigation} from '@react-navigation/native';
 const ArrowLeft = ({
   style,
   arrowColor = 'black',
+  fnOnPress = undefined,
 }: {
   style?: ViewStyle;
   arrowColor?: 'white' | 'black';
+  fnOnPress?: () => void;
 }) => {
   // navigation
   const {goBack} = useNavigation();
@@ -16,6 +18,7 @@ const ArrowLeft = ({
     <ArrowLeftBox
       style={{...style}}
       onPress={() => {
+        !!fnOnPress && fnOnPress();
         goBack();
       }}>
       {arrowColor === 'white' ? (

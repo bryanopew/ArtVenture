@@ -7,7 +7,7 @@ import {
   TextMainMd,
   TextMainRg,
   TextSubMd,
-} from '../style/styledConst';
+} from '../../style/styledConst';
 import {styled} from 'styled-components/native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {
@@ -16,15 +16,17 @@ import {
   artStyles,
   artTypes,
   keywords,
-} from '../utils/const';
-import {colors} from '../style/colors';
+} from '../../utils/const';
+import {colors} from '../../style/colors';
 import {useRecoilState} from 'recoil';
-import {filterState, handleFilter} from '../recoil/states';
+import {filterState, handleFilter} from '../../recoil/states';
 import {Slider} from '@miblanchard/react-native-slider';
 import {Text} from 'react-native';
-import {useListArt} from '../query/queries/art';
-import {IArt} from '../query/types/art';
-import {useGoToSearchScr} from '../hooks/customNavHooks';
+import {useListArt} from '../../query/queries/art';
+import {IArt} from '../../query/types/art';
+import {useGoToSearchScr} from '../../hooks/customNavHooks';
+import {useRoute} from '@react-navigation/native';
+import {getFilteredArts} from '../../utils/filter';
 
 const Filter = () => {
   // navigation
@@ -41,24 +43,7 @@ const Filter = () => {
   // 필터 슬라이더는 렌더링 줄이기 위해 onSlidingComplete에서 필터링
   // !!!!!!!!!!!!!! artData의 type, keyword는 배열!!!!!!!!!!!!
   const filteredArts = useMemo(() => {
-    return artData?.filter(item => {
-      const isArtType =
-        filter.artTypes.length > 0
-          ? filter.artTypes.some(type => item.type.includes(type))
-          : true;
-      const isArtStyle =
-        filter.artStyles.length > 0
-          ? filter.artStyles.includes(item.style)
-          : true;
-      const isKeyword =
-        filter.keywords.length > 0
-          ? filter.keywords.some(keyword => item.keyword.includes(keyword))
-          : true;
-      const isYear =
-        Number(item.year) >= filter.year[0] &&
-        Number(item.year) <= filter.year[1];
-      return isArtType && isArtStyle && isKeyword && isYear;
-    });
+    return getFilteredArts(artData, filter);
   }, [filter, artData]);
 
   return (
@@ -79,7 +64,6 @@ const Filter = () => {
               handleFilter({
                 setter: setFilter,
                 type: 'year',
-                isActivated: false,
                 value,
               })
             }
@@ -100,7 +84,6 @@ const Filter = () => {
               onPress={() => {
                 handleFilter({
                   setter: setFilter,
-                  isActivated: filter.artTypes.includes(item),
                   type: 'artTypes',
                   value: item,
                 });
@@ -120,7 +103,6 @@ const Filter = () => {
               onPress={() => {
                 handleFilter({
                   setter: setFilter,
-                  isActivated: filter.artTypes.includes(item),
                   type: 'keywords',
                   value: item,
                 });
@@ -140,7 +122,6 @@ const Filter = () => {
               onPress={() => {
                 handleFilter({
                   setter: setFilter,
-                  isActivated: filter.artTypes.includes(item),
                   type: 'artStyles',
                   value: item,
                 });
@@ -159,7 +140,9 @@ const Filter = () => {
           flexDirection: 'row',
         }}
         onPress={() =>
-          !!filteredArts ? goToSearchScr({filteredArts}) : goToSearchScr()
+          !!filteredArts
+            ? goToSearchScr({isResultShown: true})
+            : goToSearchScr()
         }>
         <CTAText>결과보기</CTAText>
         {!!filteredArts && <CTATextNum>({filteredArts.length})</CTATextNum>}

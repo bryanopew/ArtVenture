@@ -2,6 +2,8 @@ import FastImage from 'react-native-fast-image';
 import {IArt} from '../../query/types/art';
 import {Col, Row, RowSpace} from '../../style/styledConst';
 import {
+  ART_WIDTH_LARGE,
+  ART_WIDTH_SMALL,
   SCREEN_WIDTH,
   SIX_ITEM_HEIGHT,
   getFlatListItemLayout,
@@ -9,8 +11,10 @@ import {
 import {styled} from 'styled-components/native';
 import {colors} from '../../style/colors';
 import {FlatList} from 'react-native-gesture-handler';
+import {useGoToDetailScr} from '../../hooks/customNavHooks';
 
 const SixItems = ({item, index}: {item: IArt[]; index: number}) => {
+  const goToDetailScr = useGoToDetailScr();
   return (
     // Flatlist 최적화를 위한 height (SCREEN_WIDTH - (22 + 22) - 8 * 2) + 16
     <Col style={{rowGap: 8}}>
@@ -18,41 +22,50 @@ const SixItems = ({item, index}: {item: IArt[]; index: number}) => {
         {index % 2 === 0 ? (
           <>
             <Col style={{rowGap: 8}}>
-              <ImgBox>
+              <ImgBox
+                onPress={() => {
+                  goToDetailScr({artId: item[0].artId});
+                }}>
                 {item[0] && (
                   <FastImage
                     source={{uri: item[0].imgLink}}
                     resizeMode="cover"
                     style={{
-                      width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                      height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                      width: ART_WIDTH_SMALL,
+                      height: ART_WIDTH_SMALL,
                       borderRadius: 2,
                     }}
                   />
                 )}
               </ImgBox>
-              <ImgBox>
+              <ImgBox
+                onPress={() => {
+                  goToDetailScr({artId: item[1].artId});
+                }}>
                 {item[1] && (
                   <FastImage
                     source={{uri: item[1].imgLink}}
                     resizeMode="cover"
                     style={{
-                      width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                      height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                      width: ART_WIDTH_SMALL,
+                      height: ART_WIDTH_SMALL,
                       borderRadius: 2,
                     }}
                   />
                 )}
               </ImgBox>
             </Col>
-            <ImgBox>
+            <ImgBox
+              onPress={() => {
+                goToDetailScr({artId: item[2].artId});
+              }}>
               {item[2] && (
                 <FastImage
                   source={{uri: item[2].imgLink}}
                   resizeMode="cover"
                   style={{
-                    width: ((SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3) * 2 + 8,
-                    height: ((SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3) * 2 + 8,
+                    width: ART_WIDTH_LARGE,
+                    height: ART_WIDTH_LARGE,
                     borderRadius: 2,
                   }}
                 />
@@ -61,41 +74,50 @@ const SixItems = ({item, index}: {item: IArt[]; index: number}) => {
           </>
         ) : (
           <>
-            <ImgBox>
+            <ImgBox
+              onPress={() => {
+                goToDetailScr({artId: item[0].artId});
+              }}>
               {item[0] && (
                 <FastImage
-                  source={{uri: item[2].imgLink}}
+                  source={{uri: item[0].imgLink}}
                   resizeMode="cover"
                   style={{
-                    width: ((SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3) * 2 + 8,
-                    height: ((SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3) * 2 + 8,
+                    width: ART_WIDTH_LARGE,
+                    height: ART_WIDTH_LARGE,
                     borderRadius: 2,
                   }}
                 />
               )}
             </ImgBox>
             <Col style={{rowGap: 8}}>
-              <ImgBox>
+              <ImgBox
+                onPress={() => {
+                  goToDetailScr({artId: item[1].artId});
+                }}>
                 {item[1] && (
                   <FastImage
-                    source={{uri: item[0].imgLink}}
+                    source={{uri: item[1].imgLink}}
                     resizeMode="cover"
                     style={{
-                      width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                      height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                      width: ART_WIDTH_SMALL,
+                      height: ART_WIDTH_SMALL,
                       borderRadius: 2,
                     }}
                   />
                 )}
               </ImgBox>
-              <ImgBox>
+              <ImgBox
+                onPress={() => {
+                  goToDetailScr({artId: item[2].artId});
+                }}>
                 {item[2] && (
                   <FastImage
-                    source={{uri: item[1].imgLink}}
+                    source={{uri: item[2].imgLink}}
                     resizeMode="cover"
                     style={{
-                      width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                      height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                      width: ART_WIDTH_SMALL,
+                      height: ART_WIDTH_SMALL,
                       borderRadius: 2,
                     }}
                   />
@@ -106,40 +128,49 @@ const SixItems = ({item, index}: {item: IArt[]; index: number}) => {
         )}
       </Row>
       <Row style={{columnGap: 8}}>
-        <ImgBox>
+        <ImgBox
+          onPress={() => {
+            goToDetailScr({artId: item[3].artId});
+          }}>
           {item[3] && (
             <FastImage
               source={{uri: item[3].imgLink}}
               resizeMode="cover"
               style={{
-                width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                width: ART_WIDTH_SMALL,
+                height: ART_WIDTH_SMALL,
                 borderRadius: 2,
               }}
             />
           )}
         </ImgBox>
-        <ImgBox>
+        <ImgBox
+          onPress={() => {
+            goToDetailScr({artId: item[4].artId});
+          }}>
           {item[4] && (
             <FastImage
               source={{uri: item[4].imgLink}}
               resizeMode="cover"
               style={{
-                width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                width: ART_WIDTH_SMALL,
+                height: ART_WIDTH_SMALL,
                 borderRadius: 2,
               }}
             />
           )}
         </ImgBox>
-        <ImgBox>
+        <ImgBox
+          onPress={() => {
+            goToDetailScr({artId: item[5].artId});
+          }}>
           {item[5] && (
             <FastImage
               source={{uri: item[5].imgLink}}
               resizeMode="cover"
               style={{
-                width: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
-                height: (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3,
+                width: ART_WIDTH_SMALL,
+                height: ART_WIDTH_SMALL,
                 borderRadius: 2,
               }}
             />

@@ -50,12 +50,12 @@ const HeaderBox = styled.View`
   flex: 1;
 `;
 
-const HeaderLeft = styled.TouchableOpacity`
+const HeaderLeft = styled.View`
   width: 24px;
   justify-content: center;
   align-items: flex-start;
 `;
-const HeaderRight = styled.TouchableOpacity`
+const HeaderRight = styled.View`
   width: 24px;
   justify-content: center;
   align-items: flex-end;

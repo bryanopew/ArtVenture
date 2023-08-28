@@ -11,18 +11,18 @@ import {icons} from '../assets/icons';
 import {colors} from '../style/colors';
 
 // components
-import Category from '../screens/Category';
-import Bookmark from '../screens/Bookmark';
-import Korean from '../screens/Korean';
-import User from '../screens/User';
+import Category from '../screens/category/Category';
+import Bookmark from '../screens/bookmark/Bookmark';
+import Korean from '../screens/korean/Korean';
 import {useNavigation} from '@react-navigation/native';
 import {currentScrState} from '../recoil/states';
-import Home from '../screens/Home';
+import Home from '../screens/home/Home';
 import TopBarLogo from '../component/nav/TopBarLogo';
 import {SearchBtn} from '../component/nav/NavBtns';
 import {useGoToSearchScr} from '../hooks/customNavHooks';
-import {TextMainBd} from '../style/styledConst';
+import {NavHeader, TextMainBd} from '../style/styledConst';
 import ArrowLeft from '../component/nav/ArrowLeft';
+import Mypage from '../screens/mypage/Mypage';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -31,6 +31,7 @@ const BottomTabNav = () => {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: true,
+        headerLeft: () => <ArrowLeft style={{marginLeft: 22}} />,
         headerTitle: () => <TopBarLogo />,
         headerTitleAlign: 'center',
         headerRight: () => <SearchBtn style={{marginRight: 22}} />,
@@ -53,6 +54,7 @@ const BottomTabNav = () => {
         name="Home"
         component={Home}
         options={{
+          headerLeft: () => null,
           tabBarIcon: ({focused}) => (
             <IconBox>
               <IconImg source={icons.home} />
@@ -65,11 +67,9 @@ const BottomTabNav = () => {
         name="Category"
         component={Category}
         options={{
-          headerShown: true,
           headerLeft: () => <ArrowLeft style={{marginLeft: 22}} />,
           headerTitle: () => <HeaderTitleText>카테고리</HeaderTitleText>,
           headerTitleAlign: 'left',
-          headerRight: () => <SearchBtn style={{marginRight: 22}} />,
           tabBarIcon: ({focused}) => (
             <IconBox>
               <IconImg source={icons.category} />
@@ -82,6 +82,7 @@ const BottomTabNav = () => {
         name="Bookmark"
         component={Bookmark}
         options={{
+          headerShown: false,
           tabBarIcon: ({focused}) => (
             <IconBox>
               <IconImg source={icons.bookmark} />
@@ -94,7 +95,6 @@ const BottomTabNav = () => {
         name="Korean"
         component={Korean}
         options={{
-          headerShown: true,
           headerLeft: () => <ArrowLeft style={{marginLeft: 22}} />,
           tabBarIcon: ({focused}) => (
             <IconBox>
@@ -107,15 +107,20 @@ const BottomTabNav = () => {
         }}
       />
       <BottomTab.Screen
-        name="User"
-        component={User}
+        name="Mypage"
+        component={Mypage}
         options={{
+          headerLeft: () => <ArrowLeft style={{marginLeft: 22}} />,
           tabBarIcon: ({focused}) => (
             <IconBox>
               <IconImg source={icons.user} />
               {focused && <IconLine />}
             </IconBox>
           ),
+          headerTitle: () => (
+            <NavHeader style={{marginLeft: 0}}>마이페이지</NavHeader>
+          ),
+          headerTitleAlign: 'left',
         }}
       />
     </BottomTab.Navigator>

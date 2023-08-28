@@ -1,23 +1,70 @@
-export const icons = {
+interface IIcons {
+  [key: string]: any;
+  arrowLeft: any;
+  arrowLeftWhite: any;
+  artist: any;
+  bookmark: any;
+  bookmarkFilled: any;
+  brightness: any;
+  calender: any;
+  cancelSmall: any;
+  category: any;
+  circle: any;
+  circleSelected: any;
+  consult: any;
+  copy: any;
+  download: any;
+  filter: any;
+  heart: any;
+  heartGrey: any;
+  home: any;
+  korean: any;
+  logo: any;
+  location: any;
+  magnify: any;
+  menu: any;
+  more: any;
+  moreWhite: any;
+  notice: any;
+  price: any;
+  question: any;
+  right: any;
+  rightGrey: any;
+  search: any;
+  searchGrey: any;
+  setting: any;
+  share: any;
+  user: any;
+}
+export const icons: IIcons = {
   arrowLeft: require('../assets/icons/arrow_left_24.png'),
   arrowLeftWhite: require('../assets/icons/arrow_left_white_24.png'),
   artist: require('../assets/icons/artist_24.png'),
   bookmark: require('../assets/icons/bookmark_24.png'),
+  bookmarkFilled: require('../assets/icons/bookmark_filled_24.png'),
   brightness: require('../assets/icons/brightness_24.png'),
   calender: require('../assets/icons/calender_24.png'),
+  cancelSmall: require('../assets/icons/cancel_small_16.png'),
   category: require('../assets/icons/category_24.png'),
+  circle: require('../assets/icons/circle_20.png'),
+  circleSelected: require('../assets/icons/circle_selected_20.png'),
+  consult: require('../assets/icons/consult_24.png'),
   copy: require('../assets/icons/copy_24.png'),
+  download: require('../assets/icons/download_24.png'),
   filter: require('../assets/icons/filter_24.png'),
   heart: require('../assets/icons/heart_24.png'),
   heartGrey: require('../assets/icons/heart_grey_24.png'),
   home: require('../assets/icons/home_24.png'),
   korean: require('../assets/icons/korean_24.png'),
+  logo: require('../assets/icons/logo_50.png'),
   location: require('../assets/icons/location_24.png'),
   magnify: require('../assets/icons/magnify_24.png'),
   menu: require('../assets/icons/menu_24.png'),
   more: require('../assets/icons/more_24.png'),
   moreWhite: require('../assets/icons/more_white_24.png'),
+  notice: require('../assets/icons/notice_24.png'),
   price: require('../assets/icons/price_24.png'),
+  question: require('../assets/icons/question_24.png'),
   right: require('../assets/icons/right_24.png'),
   rightGrey: require('../assets/icons/right_grey_24.png'),
   search: require('../assets/icons/search_24.png'),
@@ -25,5 +72,4 @@ export const icons = {
   setting: require('../assets/icons/setting_24.png'),
   share: require('../assets/icons/share_24.png'),
   user: require('../assets/icons/user_24.png'),
-  logo: require('../assets/icons/logo_50.png'),
 };

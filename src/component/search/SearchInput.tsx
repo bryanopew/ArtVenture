@@ -6,9 +6,11 @@ import {icons} from '../../assets/icons';
 const SearchInput = ({
   searchText,
   setSearchText,
+  onSubmitEditing,
 }: {
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  onSubmitEditing?: () => void;
 }) => {
   return (
     <SearchBox>
@@ -18,7 +20,7 @@ const SearchInput = ({
         value={searchText}
         onChangeText={text => setSearchText(text)}
         onSubmitEditing={() =>
-          console.log('SearchInput: onSubmit: ', searchText)
+          !!onSubmitEditing && searchText.length > 0 && onSubmitEditing()
         }
       />
     </SearchBox>

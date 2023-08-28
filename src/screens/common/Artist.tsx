@@ -1,10 +1,10 @@
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, ActivityIndicator} from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {styled} from 'styled-components/native';
-import {colors} from '../style/colors';
-import TopBar from '../component/common/TopBar';
-import ArrowLeft from '../component/nav/ArrowLeft';
+import {colors} from '../../style/colors';
+import TopBar from '../../component/common/TopBar';
+import ArrowLeft from '../../component/nav/ArrowLeft';
 import {
   Icon,
   Row,
@@ -12,14 +12,14 @@ import {
   TextMainRg,
   TextSubMd,
   TextSubRg,
-} from '../style/styledConst';
-import {icons} from '../assets/icons';
-import {SCREEN_WIDTH, testArts} from '../utils/const';
+} from '../../style/styledConst';
+import {icons} from '../../assets/icons';
+import {SCREEN_HEIGHT, SCREEN_WIDTH, testArts} from '../../utils/const';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {useGetArtist} from '../query/queries/artist';
+import {useGetArtist} from '../../query/queries/artist';
 import FastImage from 'react-native-fast-image';
-import {useListArt} from '../query/queries/art';
-import {useGoToDetailScr} from '../hooks/customNavHooks';
+import {useListArt} from '../../query/queries/art';
+import {useGoToDetailScr} from '../../hooks/customNavHooks';
 
 const Artist = () => {
   // navigation
@@ -27,7 +27,6 @@ const Artist = () => {
   const route = useRoute();
   const goToDetailScr = useGoToDetailScr();
 
-  console.log(route);
   // react-query
   const {data: artistData} = useGetArtist(route?.params?.artistId);
   const {data: artData} = useListArt({
@@ -37,14 +36,23 @@ const Artist = () => {
 
   // useState
   const [loadMore, setLoadMore] = useState(false);
+  const [isImgLoaded, setIsImgLoaded] = useState<boolean>(false);
+
+  console.log(artistData);
   return (
     <Container>
-      <ScrollView>
+      {!isImgLoaded && (
+        <Loading style={{width: SCREEN_WIDTH, height: SCREEN_HEIGHT}}>
+          <ActivityIndicator color={colors.black} size={'large'} />
+        </Loading>
+      )}
+      <ScrollView contentContainerStyle={{paddingTop: 55, paddingBottom: 64}}>
         {artistData?.imgLink && (
           <FastImage
             style={{width: SCREEN_WIDTH, height: SCREEN_WIDTH}}
             source={{uri: artistData.imgLink}}
             resizeMode="cover"
+            onLoadEnd={() => setIsImgLoaded(true)}
           />
         )}
 
@@ -52,13 +60,23 @@ const Artist = () => {
           <Row style={{justifyContent: 'space-between'}}>
             <ArtistName
               numberOfLines={1}
-              style={{color: artistData?.artistColor ?? colors.textMain}}>
+              style={{
+                color:
+                  isImgLoaded && artistData
+                    ? artistData.artistColor
+                    : colors.textMain,
+              }}>
               {artistData?.artistName}
             </ArtistName>
-            <Icon source={icons.heartGrey} />
+            {/* <Icon source={icons.heartGrey} /> */}
           </Row>
           <ArtistYear
-            style={{color: artistData?.artistColor ?? colors.textMain}}>
+            style={{
+              color:
+                isImgLoaded && artistData
+                  ? artistData.artistColor
+                  : colors.textMain,
+            }}>
             {artistData?.year}
           </ArtistYear>
           <ArtistDesc
@@ -86,20 +104,23 @@ const Artist = () => {
       </ScrollView>
       {/* TBD | TopBar animation 적용 */}
       <TopBar
-        style={{backgroundColor: artistData?.artistColor}}
+        style={{
+          backgroundColor:
+            isImgLoaded && !!artistData ? artistData.artistColor : colors.white,
+        }}
         headerLeft={() => (
-          <ArrowLeft
-            arrowColor="white"
-            navigationFn={() => {
-              navigation.goBack();
-            }}
-          />
+          <ArrowLeft arrowColor={isImgLoaded ? 'white' : 'black'} />
         )}
-        header={() => <HeaderText>{artistData?.artistName}</HeaderText>}
+        header={() => (
+          <HeaderText
+            style={{color: isImgLoaded ? colors.white : colors.black}}>
+            {artistData?.artistName}
+          </HeaderText>
+        )}
         headerRight={() => (
           <TouchableOpacity
             onPress={() => console.log('Artist: more onPressed')}>
-            <Icon source={icons.moreWhite} />
+            <Icon source={isImgLoaded ? icons.moreWhite : icons.more} />
           </TouchableOpacity>
         )}
       />
@@ -112,6 +133,10 @@ export default Artist;
 const Container = styled.View`
   flex: 1;
   background-color: ${colors.white};
+`;
+const Loading = styled.View`
+  justify-content: center;
+  align-items: center;
 `;
 
 const HeaderText = styled(TextMainBd)`

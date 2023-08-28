@@ -1,14 +1,14 @@
 import {ScrollView} from 'react-native';
 import React, {useEffect, useMemo} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {Container, RowSpace, TextMainBd} from '../style/styledConst';
-import HomeListContent from '../component/homeList/HomeListContent';
-import {IArt} from '../query/types/art';
-import {useListArtistSummaryBySubject} from '../query/queries/artist';
-import {useListArt} from '../query/queries/art';
-import {IArtist} from '../query/types/artists';
+import {Container, RowSpace, TextMainBd} from '../../style/styledConst';
+import HomeListContent from '../../component/homeList/HomeListContent';
+import {IArt} from '../../query/types/art';
+import {useListArtistSummaryBySubject} from '../../query/queries/artist';
+import {useListArt} from '../../query/queries/art';
+import {IArtist} from '../../query/types/artists';
 import {FlatList} from 'react-native-gesture-handler';
-import {HOME_LIST_ITEM_HEIGHT, getFlatListItemLayout} from '../utils/const';
+import {HOME_LIST_ITEM_HEIGHT, getFlatListItemLayout} from '../../utils/const';
 
 const HomeList = () => {
   // navigation
@@ -62,7 +62,6 @@ const HomeList = () => {
 
     return artSortedByArtist;
   }, [artistBySubject, artBySubject]);
-  console.log('artSortedByArtist', artSortedByArtist);
   return (
     <Container>
       <FlatList

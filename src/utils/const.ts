@@ -10,8 +10,13 @@ export const _MPY_ = SCREEN_WIDTH / guidelineBaseWidth;
 
 // common
 export const TOP_BAR_HEIGHT = 55;
+export const ART_WIDTH_SMALL = (SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3;
+export const ART_WIDTH_LARGE = ((SCREEN_WIDTH - (22 + 22) - 8 * 2) / 3) * 2 + 8;
+
+// Flatlist_Item_Height
 export const HOME_LIST_ITEM_HEIGHT = 84 + (SCREEN_WIDTH - 22 - 22 - 8);
 export const SIX_ITEM_HEIGHT = SCREEN_WIDTH - (22 + 22) - 8 * 2 + 16 + 8;
+export const CATEGORY_LIST_ITEM_HEIGHT = 30 + 12 + ART_WIDTH_LARGE + 28;
 export const getFlatListItemLayout = (
   data: any,
   index: number,
